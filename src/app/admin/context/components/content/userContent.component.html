@@ -1,0 +1,174 @@
+<div class="content-wrapper" style="min-height: 422px;">
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">User DashBoard</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">Home / <a href="#">User Dashboard</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+               Account Table
+              <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#modal-sm" >Add Account</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6"></div>
+                  <div class="col-sm-12 col-md-6"></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                      aria-describedby="example2_info">
+                      <thead>
+                        <tr role="row">
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                           </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr class="odd">
+                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
+                          <td>Firefox 1.0</td>
+                          <td>Win 98+ / OSX.2+</td>
+                          <td>1.7</td>
+                          <td>A</td>
+                          <td></td>
+                        </tr>
+                        <tr class="even">
+                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
+                          <td>Firefox 1.5</td>
+                          <td>Win 98+ / OSX.2+</td>
+                          <td>1.8</td>
+                          <td>A</td>
+                          <td></td>
+                        </tr> -->
+                        <ng-container *ngIf="accounts != null">
+                          <ng-container *ngFor="let account of accounts">
+                            <tr>
+                            <td>{{account.id}}</td>
+                            <td>{{account.username}}</td>
+                            <td>{{account.name}}</td>
+                            <td>{{account.email}}</td>
+                            <td>{{account.role.name}}</td>
+                            <td></td>
+                            </tr>
+                          </ng-container>
+                        </ng-container>
+                      </tbody>
+                     </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- Pagination -->
+                  
+                  <!-- <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of
+                      57 entries</div>
+                  </div> -->
+                  <!-- <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                      <ul class="pagination">
+                        <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#"
+                            aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                        <li class="paginate_button page-item active"><a href="#" aria-controls="example2"
+                            data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2"
+                            tabindex="0" class="page-link">2</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3"
+                            tabindex="0" class="page-link">3</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4"
+                            tabindex="0" class="page-link">4</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5"
+                            tabindex="0" class="page-link">5</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6"
+                            tabindex="0" class="page-link">6</a></li>
+                        <li class="paginate_button page-item next" id="example2_next"><a href="#"
+                            aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                      </ul>
+                    </div>
+                  </div> -->
+                </div>
+
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Account</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+            <form [formGroup]="accountAddForm" (ngSubmit)="addAccount()">
+              <div class="mb-3">
+                <label for="fullname" class="col-form-label">Name</label>
+                <input type="text" class="form-control" id="fullname" formControlName="name">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="col-form-label">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+              </div>
+
+              <div class="mb-3">
+                <label for="username" class="col-form-label">Username</label>
+                <input type="text" class="form-control" id="username" formControlName="username">
+              </div>
+              
+              <div class="mb-3">
+                <label for="password" class="col-form-label">Password</label>
+                <input type="text" class="form-control" id="password" formControlName="password">
+              </div>
+              <div class="mb-3">
+                <select class="form-select form-select-sm" formControlName="role" [(ngModel)]="roles">
+                  <ng-container *ngIf="roles != null">
+                    <ng-container *ngFor="let role of roles; let i =index">
+                      <option value="{{i + 1}}">{{role.name}}</option>
+                    </ng-container>
+                  </ng-container>
+                </select>
+              </div>
+
+            </form>
+
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="addAccount()">Save</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+  </section>
+</div>
+<style>
+
+</style>

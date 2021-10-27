@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './login.component.html',
+  templateUrl: './admin.component.html',
 })
-export class LoginComponent {
+export class AdminComponent {
 
 
   ngOnInit() {

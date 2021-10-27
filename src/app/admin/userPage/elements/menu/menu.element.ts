@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: './userPage.component.html'
+  selector: 'app-menu',
+  templateUrl: './menu.element.html',
 })
-export class UserPageComponent {
+export class MenuElement {
 
 
   ngOnInit() {

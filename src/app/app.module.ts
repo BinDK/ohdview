@@ -3,22 +3,35 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserLoginComponent } from './component/userLogin/userlogin.component';
-import { UserPageComponent } from './component/userPage/userPage.component';
-import { LoginComponent } from './login.component';
+import { AdminComponent } from './admin/admin.component';
+//Prime Stuff
+import {AccordionModule} from 'primeng/accordion';
+import {MenuItem} from 'primeng/api';
+import {TableModule} from 'primeng/table';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { routing } from './app.routing';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    UserLoginComponent,
-    UserPageComponent
+    AdminComponent,
+    // MenuElement,
+    // HeaderElement,
+    // ContentElement,
+    // FooterElement,
+    // UserContentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    routing,
+    AdminModule,
+    //Prime stuff
+    AccordionModule,
+    TableModule,
+    BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [LoginComponent]
+  bootstrap: [AdminComponent]
 })
 export class AppModule { }

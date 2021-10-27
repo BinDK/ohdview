@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserLoginComponent } from './component/userLogin/userlogin.component';
-import { UserPageComponent } from './component/userPage/userPage.component';
-import { LoginComponent } from './login.component';
+// import { UserContentComponent } from './admin/userPage/components/content/userContent.component';
+// import { UserPageComponent } from './admin/userPage/userPage.component';
+// import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
-  {path:'',component: LoginComponent, children: [
-    {path:'',component: UserLoginComponent},
-    {path:'login',component: UserLoginComponent},
-    {path:'logged',component: UserPageComponent},
-  ]},
-  {path:'**',component:UserLoginComponent,redirectTo:''},
-
+  // { path: '', redirectTo: '/admin', pathMatch: 'full' }
 ];
 
 @NgModule({

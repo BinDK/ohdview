@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: './userlogin.component.html'
+  templateUrl: './adminContext.component.html'
 })
-export class UserLoginComponent {
+export class AdminContextComponent {
 
 
   ngOnInit() {
