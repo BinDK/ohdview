@@ -13,6 +13,7 @@ export class UserContentComponent {
   accounts: Account[];
   roles: Role[];
   accountAddForm: FormGroup;
+  accountUpdateForm: FormGroup;
 
   constructor(
     private service: AdminService,
@@ -47,5 +48,9 @@ export class UserContentComponent {
   //     accept => {console.log(accept)},
   //     reject => {console.log(reject)}
   // );
+  }
+
+  updateAccount(){
+    
   }
 }

@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">User DashBoard</h1>
+          <h1 class="m-0">Account DashBoard</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item">Home / <a href="#">User Dashboard</a></li>
+            <li class="breadcrumb-item">Home / <span style="color:rgb(51, 149, 255)">Account Dashboard</span></li>
           </ol>
         </div>
       </div>
@@ -21,7 +21,7 @@
           <div class="card">
             <div class="card-header">
                Account Table
-              <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#modal-sm" >Add Account</a>
+              <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#new-account" >Add Account</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -69,7 +69,10 @@
                             <td>{{account.name}}</td>
                             <td>{{account.email}}</td>
                             <td>{{account.role.name}}</td>
-                            <td></td>
+                            <td class="text-center">
+                              <button class="btn btn-primary" data-toggle="modal" data-target="#update-account">Update</button>&nbsp;&nbsp;
+                              <button class="btn btn-danger" data-toggle="modal" data-target="#delete-account">Delete</button>
+                            </td>
                             </tr>
                           </ng-container>
                         </ng-container>
@@ -115,7 +118,9 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+
+    <!-- MODAL -->
+    <div class="modal fade" id="new-account" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
@@ -167,6 +172,82 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+
+    <div class="modal fade" id="update-account" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Update Account</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+            <form [formGroup]="accountUpdateForm" (ngSubmit)="updateAccount()">
+              
+              <div class="mb-3">
+                <label for="fullname" class="col-form-label">Name</label>
+                <input type="text" class="form-control" id="fullname" formControlName="name">
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="col-form-label">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+              </div>
+
+              <div class="mb-3">
+                <label for="username" class="col-form-label">Username</label>
+                <input type="text" class="form-control" id="username" formControlName="username">
+              </div>
+      
+              <div class="mb-3">
+                <label for="password" class="col-form-label">Password</label>
+                <input type="text" class="form-control" id="password" formControlName="password">
+              </div>
+
+              <div class="mb-3">
+                <select class="form-select form-select-sm" formControlName="role" [(ngModel)]="roles">
+                  <ng-container *ngIf="roles != null">
+                    <ng-container *ngFor="let role of roles; let i =index">
+                      <option value="{{i + 1}}">{{role.name}}</option>
+                    </ng-container>
+                  </ng-container>
+                </select>
+              </div>
+
+            </form>
+
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="addAccount()">Save</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="delete-account" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Are you sure?</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-primary">YES</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
   </section>
 </div>
 <style>
