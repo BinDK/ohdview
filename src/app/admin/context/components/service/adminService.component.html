@@ -44,30 +44,12 @@
                              </tr>
                         </thead>
                         <tbody>
-                          <tr class="odd">
-                            <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                            <td>Firefox 1.0</td>
-                            <td>1.7</td>
-                            <td>A</td>
-                            <td>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#update-service">Update</button>&nbsp;&nbsp;
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete-service">Delete</button>
-                            </td>
-                          </tr>
-                          <tr class="even">
-                            <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                            <td>Firefox 1.5</td>
-                            <td>1.8</td>
-                            <td>A</td>
-                            <td>                                <button class="btn btn-primary" data-toggle="modal" data-target="#update-service">Update</button>&nbsp;&nbsp;
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete-service">Delete</button></td>
-                          </tr>
-                          <!-- <ng-container *ngIf="services != null">
+                          <ng-container *ngIf="services != null">
                             <ng-container *ngFor="let service of services">
                               <tr>
                               <td>{{service.id}}</td>
                               <td>{{service.name}}</td>
-                              <td>{{service.head.name}}</td>
+                              <td>{{service.facility.name}}</td>
                               <td>{{service.description}}</td>
                               <td class="text-center">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#update-service">Update</button>&nbsp;&nbsp;
@@ -75,7 +57,7 @@
                               </td>
                               </tr>
                             </ng-container>
-                          </ng-container> -->
+                          </ng-container>
                         </tbody>
                        </table>
                     </div>
@@ -129,9 +111,9 @@
                 <span aria-hidden="true">×</span>
               </button>
             </div>
+            <form [formGroup]="serviceAddForm" (click)="serviceAdd()">
             <div class="modal-body">
              
-              <form >
                 <div class="mb-3">
                   <label for="fullname" class="col-form-label">Name</label>
                   <input type="text" class="form-control" id="fullname" formControlName="name">
@@ -139,11 +121,9 @@
   
                 <div class="mb-3">
                   Facility:<select class="form-select form-select-sm" formControlName="facility" >
-                    <!-- <ng-container *ngIf="accounts != null">
-                      <ng-container *ngFor="let account of accounts; let i =index">
+                    <ng-container *ngIf="facilities != null">
+                      <option *ngFor="let facility of facilities" [ngValue]="facility.id">{{facility.name}}</option>
                     </ng-container>
-                </ng-container> -->
-                <option >Service Name</option>
                   </select>
                 </div>
 
@@ -152,13 +132,13 @@
                   <textarea type="text" class="form-control" id="desc" formControlName="description"> </textarea>
                 </div>
                 
-              </form>
-  
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
+                
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
@@ -174,24 +154,20 @@
                 <span aria-hidden="true">×</span>
               </button>
             </div>
-            <div class="modal-body">
+            <form [formGroup]="serviceUpdateForm" (click)="serviceUpdate()">
+              <div class="modal-body">
              
-              <form >
                 <div class="mb-3">
                   <label for="fullname" class="col-form-label">Name</label>
                   <input type="text" class="form-control" id="fullname" formControlName="name">
                 </div>
   
                 <div class="mb-3">
-                Facility: <select class="form-select form-select-sm" formControlName="facility" >
-                    <!-- <ng-container *ngIf="accounts != null">
-                      <ng-container *ngFor="let account of accounts; let i =index">
-                        <option [ngValue]="account.id">{{account.name}}</option>
-                      </ng-container>
-                    </ng-container> -->
-                    <option >Service Name</option>
-                  
-                </select>
+                  Facility:<select class="form-select form-select-sm" formControlName="facility" >
+                    <ng-container *ngIf="facilities != null">
+                      <option *ngFor="let facility of facilities" [ngValue]="facility.id">{{facility.name}}</option>
+                    </ng-container>
+                  </select>
                 </div>
 
                 <div class="mb-3">
@@ -199,13 +175,13 @@
                   <textarea type="text" class="form-control" id="desc" formControlName="description"> </textarea>
                 </div>
                 
-              </form>
-  
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
+                
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>

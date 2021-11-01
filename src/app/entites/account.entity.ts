@@ -7,5 +7,6 @@ export class Account{
     name: string;
     email: string;
     role: Role;
+    roleId: number;
     status: boolean;
 }

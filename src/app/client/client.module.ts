@@ -3,38 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'primeng/accordion';
 import { TableModule } from 'primeng/table';
-import { AdminRouting } from './admin.routing';
+import { ClientRouting } from './client.routing';
+
 import { ContentElement } from './context/elements/content/content.element';
 import { FooterElement } from './context/elements/footer/footer.element';
 import { HeaderElement } from './context/elements/header/header.element';
 import { MenuElement } from './context/elements/menu/menu.element';
-import { UserContentComponent } from './context/components/content/userContent.component';
-import { AdminContextComponent } from './context/adminContext.component';
-import { AdminFacilityComponent } from './context/components/facility/adminFacility.component';
-import { AdminServiceComponent } from './context/components/service/adminService.component';
-import { AdminService } from './services/AdminService.service';
+
+import { ClientService } from './services/ClientService.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminProfileComponent } from './context/components/profiles/adminProfile.component';
-import { AdminComponent } from './admin.component';
+import { ClientContextComponent } from './context/clientContext.component';
+import { ClientComponent } from './client.component';
 
 @NgModule({
   declarations: [
-    AdminComponent,
-AdminContextComponent,
-UserContentComponent,
-MenuElement,
-FooterElement,
-HeaderElement,
-ContentElement,
-AdminFacilityComponent,
-AdminServiceComponent,
-AdminProfileComponent
+    ClientComponent,
+    ClientContextComponent,
+    MenuElement,
+    FooterElement,
+    HeaderElement,
+    ContentElement,
   ],
   imports: [
     BrowserModule,
     // AdminRoutingModule,
-    AdminRouting,
+    ClientRouting,
     ReactiveFormsModule,
     FormsModule,
     //Prime stuff
@@ -44,6 +38,6 @@ AdminProfileComponent
     HttpClientModule,
 
   ],
-  providers: [AdminService]
+  providers: [ClientService]
 })
-export class AdminModule { }
+export class ClientModule { }

@@ -9,29 +9,30 @@ import {AccordionModule} from 'primeng/accordion';
 import {MenuItem} from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { routing } from './app.routing';
+import { MainRouting } from './app.routing';
 import { AdminModule } from './admin/admin.module';
+import { ClientModule } from './client/client.module';
+import { LoginModule } from './login/login.module';
+// import { ClientComponent } from './client/client.component';
+// import { ClientModule } from './client/client.module';
+// import { ClientModule } from './client/client.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AdminComponent,
-    // MenuElement,
-    // HeaderElement,
-    // ContentElement,
-    // FooterElement,
-    // UserContentComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    routing,
+    MainRouting,
     AdminModule,
+    ClientModule,
+    LoginModule,
     //Prime stuff
     AccordionModule,
     TableModule,
     BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AdminComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

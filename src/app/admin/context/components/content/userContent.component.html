@@ -20,8 +20,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-               Account Table
-              <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#new-account" >Add Account</a>
+              Account Table
+              <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#new-account">Add
+                Account</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -36,53 +37,40 @@
                       aria-describedby="example2_info">
                       <thead>
                         <tr role="row">
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Action</th>
-                           </tr>
+                          <th>ID</th>
+                          <th>Username</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Action</th>
+                        </tr>
                       </thead>
                       <tbody>
-                        <!-- <tr class="odd">
-                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                          <td>Firefox 1.0</td>
-                          <td>Win 98+ / OSX.2+</td>
-                          <td>1.7</td>
-                          <td>A</td>
-                          <td></td>
-                        </tr>
-                        <tr class="even">
-                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                          <td>Firefox 1.5</td>
-                          <td>Win 98+ / OSX.2+</td>
-                          <td>1.8</td>
-                          <td>A</td>
-                          <td></td>
-                        </tr> -->
                         <ng-container *ngIf="accounts != null">
                           <ng-container *ngFor="let account of accounts">
                             <tr>
-                            <td>{{account.id}}</td>
-                            <td>{{account.username}}</td>
-                            <td>{{account.name}}</td>
-                            <td>{{account.email}}</td>
-                            <td>{{account.role.name}}</td>
-                            <td class="text-center">
-                              <button class="btn btn-primary" data-toggle="modal" data-target="#update-account">Update</button>&nbsp;&nbsp;
-                              <button class="btn btn-danger" data-toggle="modal" data-target="#delete-account">Delete</button>
-                            </td>
+                              <td>{{account.id}}</td>
+                              <td>{{account.username}}</td>
+                              <td>{{account.name}}</td>
+                              <td>{{account.email}}</td>
+                              <!-- <td>{{account.role.name}}</td> -->
+                              <td>{{account.roleId}}</td>
+                              <td class="text-center">
+                                <button class="btn btn-primary" data-toggle="modal"
+                                  data-target="#update-account">Update</button>&nbsp;&nbsp;
+                                <button class="btn btn-danger" data-toggle="modal"
+                                  data-target="#delete-account">Delete</button>
+                              </td>
                             </tr>
                           </ng-container>
                         </ng-container>
                       </tbody>
-                     </table>
+                    </table>
                   </div>
                 </div>
                 <div class="row">
                   <!-- Pagination -->
-                  
+
                   <!-- <div class="col-sm-12 col-md-5">
                     <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of
                       57 entries</div>
@@ -119,7 +107,7 @@
       </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- MODAL ADD UPDATE DELETE ACCOUNT -->
     <div class="modal fade" id="new-account" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -129,44 +117,45 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">
-           
-            <form [formGroup]="accountAddForm" (ngSubmit)="addAccount()">
+          <form [formGroup]="accountAddForm" (ngSubmit)="addAccount()">
+            <div class="modal-body">
+
               <div class="mb-3">
                 <label for="fullname" class="col-form-label">Name</label>
-                <input type="text" class="form-control" id="fullname" formControlName="name">
+                <input type="text" class="form-control" id="fullname" id="name" formControlName="name">
               </div>
               <div class="mb-3">
                 <label for="email" class="col-form-label">Email</label>
-                <input type="email" class="form-control" id="email" formControlName="email">
+                <input type="email" class="form-control" id="email" name="email" formControlName="email">
               </div>
 
               <div class="mb-3">
                 <label for="username" class="col-form-label">Username</label>
-                <input type="text" class="form-control" id="username" formControlName="username">
+                <input type="text" class="form-control" id="username" name="username" formControlName="username">
               </div>
-              
+
               <div class="mb-3">
                 <label for="password" class="col-form-label">Password</label>
-                <input type="text" class="form-control" id="password" formControlName="password">
+                <input type="password" class="form-control" id="password" name="password" formControlName="password">
               </div>
               <div class="mb-3">
-                <select class="form-select form-select-sm" formControlName="role" [(ngModel)]="roles">
+                <select class="form-select form-select-sm" name="roleId" formControlName="roleId">
                   <ng-container *ngIf="roles != null">
-                    <ng-container *ngFor="let role of roles; let i =index">
+                    <!-- <ng-container *ngFor="let role of roles; let i =index">
                       <option value="{{i + 1}}">{{role.name}}</option>
-                    </ng-container>
+                    </ng-container> -->
+                    <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
                   </ng-container>
                 </select>
               </div>
 
-            </form>
 
-          </div>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" (click)="addAccount()">Save</button>
-          </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
         </div>
         <!-- /.modal-content -->
       </div>
@@ -182,10 +171,10 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">
-           
-            <form [formGroup]="accountUpdateForm" (ngSubmit)="updateAccount()">
-              
+          <form [formGroup]="accountUpdateForm" (ngSubmit)="updateAccount()">
+            <div class="modal-body">
+
+
               <div class="mb-3">
                 <label for="fullname" class="col-form-label">Name</label>
                 <input type="text" class="form-control" id="fullname" formControlName="name">
@@ -200,29 +189,30 @@
                 <label for="username" class="col-form-label">Username</label>
                 <input type="text" class="form-control" id="username" formControlName="username">
               </div>
-      
+
               <div class="mb-3">
                 <label for="password" class="col-form-label">Password</label>
                 <input type="text" class="form-control" id="password" formControlName="password">
               </div>
 
               <div class="mb-3">
-                <select class="form-select form-select-sm" formControlName="role" [(ngModel)]="roles">
+                <select class="form-select form-select-sm" formControlName="roleId">
                   <ng-container *ngIf="roles != null">
-                    <ng-container *ngFor="let role of roles; let i =index">
+                    <!-- <ng-container *ngFor="let role of roles; let i =index">
                       <option value="{{i + 1}}">{{role.name}}</option>
-                    </ng-container>
+                    </ng-container> -->
+                    <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
                   </ng-container>
                 </select>
               </div>
 
-            </form>
 
-          </div>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" (click)="addAccount()">Save</button>
-          </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" (click)="updateAccount()">Save</button>
+            </div>
+          </form>
         </div>
         <!-- /.modal-content -->
       </div>

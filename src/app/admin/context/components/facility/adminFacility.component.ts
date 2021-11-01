@@ -28,12 +28,33 @@ export class AdminFacilityComponent {
           res => {this.facilities  = res},
           reject =>{console.log(reject) }
       );
-      this.service.findAll().then(
+      this.service.findAllHead().then(
         res => {this.accounts  = res},
         reject =>{console.log(reject) }
     );
+    this.facilityAddForm = this.formBuilder.group({
+      id:'',
+      name:'',
+      email:'',
+      username:'',
+      password:'',
+      roleId:0,
+    });
+    this.facilityUpdateForm = this.formBuilder.group({
+      name:'',
+      email:'',
+      username:'',
+      password:'',
+      roleId:0,
+    });
+
+  }
+  addFacility(){
 
   }
 
+  updateFacility(){
+
+  }
   
 }

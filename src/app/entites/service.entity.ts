@@ -1,11 +1,10 @@
 import { Account } from "./account.entity";
+import { Facility } from "./facility.entity";
 
-export class Facility{
+export class Service{
     id: number;
-
     name: string;
-    email: string;
-    head: Account;
+    facility: Facility;
     description: string;
 
 }

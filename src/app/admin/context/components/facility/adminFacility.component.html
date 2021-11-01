@@ -127,37 +127,35 @@
                 <span aria-hidden="true">×</span>
               </button>
             </div>
+            <form [formGroup]="facilityAddForm" (click)="addFacility()">
             <div class="modal-body">
              
-              <form >
                 <div class="mb-3">
                   <label for="fullname" class="col-form-label">Name</label>
                   <input type="text" class="form-control" id="fullname" formControlName="name">
                 </div>
   
                 <div class="mb-3">
-                  Head Account:<select class="form-select form-select-sm" formControlName="role" >
+                  Head Account:<select class="form-select form-select-sm" formControlName="head" >
                     <ng-container *ngIf="accounts != null">
-                      <ng-container *ngFor="let account of accounts; let i =index">
-                        <option [ngValue]="account.id">{{account.name}}</option>
-                      </ng-container>
+                      <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
                     </ng-container>
                   </select>
                 </div>
 
                 <div class="mb-3">
                   <label for="desc" class="col-form-label">Description</label>
-                  <textarea type="text" class="form-control" id="desc" formControlName="password"> </textarea>
+                  <textarea type="text" class="form-control" id="desc" formControlName="desription"> </textarea>
                 </div>
                 
-              </form>
-  
+                
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
             </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-          </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
@@ -174,33 +172,35 @@
             </div>
             <div class="modal-body">
              
-              <form >
-                <div class="mb-3">
-                  <label for="fullname" class="col-form-label">Name</label>
-                  <input type="text" class="form-control" id="fullname" formControlName="name">
-                </div>
+              <form [formGroup]="facilityUpdateForm" (click)="updateFacility()">
+                <div class="modal-body">
+                 
+                    <div class="mb-3">
+                      <label for="fullname" class="col-form-label">Name</label>
+                      <input type="text" class="form-control" id="fullname" formControlName="name">
+                    </div>
+      
+                    <div class="mb-3">
+                      Head Account:<select class="form-select form-select-sm" formControlName="head" >
+                        <ng-container *ngIf="accounts != null">
+                          <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
+                        </ng-container>
+                      </select>
+                    </div>
+    
+                    <div class="mb-3">
+                      <label for="desc" class="col-form-label">Description</label>
+                      <textarea type="text" class="form-control" id="desc" formControlName="desription"> </textarea>
+                    </div>
+                    
+                    
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
   
-                <div class="mb-3">
-                  Head Account:<select class="form-select form-select-sm" formControlName="role" >
-                    <ng-container *ngIf="accounts != null">
-                      <ng-container *ngFor="let account of accounts; let i =index">
-                        <option [ngValue]="account.id">{{account.name}}</option>
-                      </ng-container>
-                    </ng-container>
-                  </select>
-                </div>
-
-                <div class="mb-3">
-                  <label for="desc" class="col-form-label">Description</label>
-                  <textarea type="text" class="form-control" id="desc" formControlName="password"> </textarea>
-                </div>
-                
-              </form>
-  
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
             </div>
           </div>
           <!-- /.modal-content -->

@@ -3,13 +3,12 @@ import { AdminService } from 'src/app/admin/services/AdminService.service';
 import { Account } from 'src/app/entites/account.entity';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Role } from 'src/app/entites/role.entity';
-import { empty } from 'rxjs';
 
 @Component({
   // selector: 'app-content1',
-  templateUrl: './userContent.component.html',
+  templateUrl: './adminProfile.component.html',
 })
-export class UserContentComponent {
+export class AdminProfileComponent {
 
   accounts: Account[];
   roles: Role[];
@@ -38,26 +37,17 @@ export class UserContentComponent {
       email:'',
       username:'',
       password:'',
-      roleId:0,
-    });
-    this.accountUpdateForm = this.formBuilder.group({
-      name:'',
-      email:'',
-      username:'',
-      password:'',
-      roleId:0,
+      // role:1,
     });
   }
 
   addAccount(){
-  let account :Account = this.accountAddForm.value;
-  alert(account.name + "--" + account.email + "--" + account.username + "--" + account.password + "--" + account.roleId);
-  // account.id = 6;
-  // account.role = null;
-  this.service.create(account).then(
-      accept => {console.log(accept)},
-      reject => {console.log(reject)}
-  );
+  let account :Account= this.accountAddForm.value;
+  // alert(" Role : "+ account.roleId);
+  // this.service.create(account).then(
+  //     accept => {console.log(accept)},
+  //     reject => {console.log(reject)}
+  // );
   }
 
   updateAccount(){

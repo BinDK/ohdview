@@ -5,6 +5,7 @@ import { UserContentComponent } from './context/components/content/userContent.c
 import { AdminContextComponent } from './context/adminContext.component';
 import { AdminFacilityComponent } from './context/components/facility/adminFacility.component';
 import { AdminServiceComponent } from './context/components/service/adminService.component';
+import { AdminProfileComponent } from './context/components/profiles/adminProfile.component';
 
 const routes: Routes = [
     {
@@ -14,6 +15,7 @@ const routes: Routes = [
             { path: 'account', component: UserContentComponent },
             { path: 'facility', component: AdminFacilityComponent },
             { path: 'service', component: AdminServiceComponent },
+            { path: 'profile', component: AdminProfileComponent },
         ]
     }
 ];
