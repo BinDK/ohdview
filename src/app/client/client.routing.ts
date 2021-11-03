@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientComponent } from './client.component';
 import { ClientContextComponent } from './context/clientContext.component';
+import { ClientProfileComponent } from './context/components/profiles/clientProfile.component';
+import { ClientSendRequestComponent } from './context/components/request/clientSendRequest.component';
 // import { AdminComponent } from './client.component';
 // import { UserContentComponent } from './context/components/content/userContent.component';
 // import { AdminContextComponent } from './context/adminContext.component';
@@ -16,8 +18,8 @@ const routes: Routes = [
         children: [
             // { path: 'account', component: UserContentComponent },
             // { path: 'facility', component: AdminFacilityComponent },
-            // { path: 'service', component: AdminServiceComponent },
-            // { path: 'profile', component: AdminProfileComponent },
+            { path: 'sendRequest', component: ClientSendRequestComponent },
+            { path: 'profile', component: ClientProfileComponent },
         ]
     }
 ];

@@ -11,45 +11,121 @@ export class AdminServiceComponent {
 
 
   services: Service[];
-facilities: Facility[];
+  serviceDetail: Service[];
+  facilities: Facility[];
   serviceAddForm: FormGroup;
   serviceUpdateForm: FormGroup;
+  serviceDeleteForm: FormGroup;
 
   constructor(
     private service: AdminService,
     private formBuilder: FormBuilder
 
-  ){}
+  ) { }
 
   ngOnInit() {
     this.service.findAllService().then(
-          res => {this.services  = res},
-          reject =>{console.log(reject) }
-      );
-      this.service.findAllFacility().then(
-        res => {this.facilities  = res},
-        reject =>{console.log(reject) }
+      res => { this.services = res },
+      reject => { console.log(reject) }
+    );
+    this.service.findAllFacility().then(
+      res => { this.facilities = res },
+      reject => { console.log(reject) }
     );
 
 
     this.serviceAddForm = this.formBuilder.group({
-      name:'',
-      Facility:'',
-      description:'',
+      name: '',
+      facilityid: 0,
+      description: '',
     });
     this.serviceUpdateForm = this.formBuilder.group({
-      name:'',
-      Facility:'',
-      description:'',
-    }); 
+      id:0,
+      name: '',
+      facilityid: 0,
+      description: '',
+    });
+    this.serviceDeleteForm = this.formBuilder.group({
+      id: 0
+    });
   }
 
-  serviceAdd(){
-
+  serviceAdd() {
+    let service: Service = this.serviceAddForm.value;
+    this.service.createService(service).then(
+      accept => {
+        console.log(accept);
+        this.service.findAllService().then(
+          res => { this.services = res },
+          reject => { console.log(reject) }
+        );
+      },
+      reject => { console.log(reject) }
+    );
   }
 
-  serviceUpdate(){
+  detailService(id: number) {
+    this.service.detailService(id).then(
+      res => {
 
+        this.serviceDetail = res;
+        console.log(res);
+        res.forEach(servi => {
+          this.serviceUpdateForm = this.formBuilder.group({
+            id: servi.id,
+            name: servi.name,
+            facilityid: servi.facilityid,
+            description: servi.description,
+          });
+        });
+      },
+
+      reject => { console.log(reject) }
+    );
   }
-  
+  serviceUpdate() {
+    let service: Service = this.serviceUpdateForm.value;
+
+    this.service.updateService(service).then(
+      accept => {
+        this.service.findAllService().then(
+          res => { this.services = res },
+          reject => { console.log(reject) }
+        );
+      },
+      reject => { console.log(reject) }
+    );
+  }
+  noUpdate() {
+    this.serviceUpdateForm = this.formBuilder.group({
+      id: 0,
+      name: '',
+      facilityid: 0,
+      description: ''
+    });
+  }
+
+  deleteService(id: number) {
+    this.serviceDeleteForm = this.formBuilder.group({
+      id: id
+    });
+  }
+  actualDelete() {
+    let service: Service = this.serviceDeleteForm.value;
+
+    this.service.deleteService(service.id).then(
+      accept => {
+        this.service.findAllService().then(
+          res => { this.services = res },
+          reject => { console.log(reject) }
+        );
+      },
+      reject => { console.log(reject) }
+    );
+  }
+  actualNotDelete() {
+    this.serviceDeleteForm = this.formBuilder.group({
+      id: 0
+    });
+  }
 }

@@ -6,6 +6,7 @@ export class Facility{
     name: string;
     email: string;
     head: Account;
+    headaccountid: number;
     description: string;
 
 }

@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientContextComponent } from './context/clientContext.component';
 import { ClientComponent } from './client.component';
+import { ClientProfileComponent } from './context/components/profiles/clientProfile.component';
+import { ClientSendRequestComponent } from './context/components/request/clientSendRequest.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { ClientComponent } from './client.component';
     FooterElement,
     HeaderElement,
     ContentElement,
+    ClientProfileComponent,
+    ClientSendRequestComponent
   ],
   imports: [
     BrowserModule,

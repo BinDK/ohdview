@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminProfileComponent } from './context/components/profiles/adminProfile.component';
 import { AdminComponent } from './admin.component';
+import { AdminPriorityComponent } from './context/components/priority/priority.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ HeaderElement,
 ContentElement,
 AdminFacilityComponent,
 AdminServiceComponent,
-AdminProfileComponent
+AdminProfileComponent,
+AdminPriorityComponent
   ],
   imports: [
     BrowserModule,

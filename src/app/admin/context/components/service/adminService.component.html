@@ -52,8 +52,8 @@
                               <td>{{service.facility.name}}</td>
                               <td>{{service.description}}</td>
                               <td class="text-center">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#update-service">Update</button>&nbsp;&nbsp;
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete-service">Delete</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#update-service" (click)="detailService(service.id)">Update</button>&nbsp;&nbsp;
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete-service" (click)="deleteService(service.id)">Delete</button>
                               </td>
                               </tr>
                             </ng-container>
@@ -111,7 +111,7 @@
                 <span aria-hidden="true">×</span>
               </button>
             </div>
-            <form [formGroup]="serviceAddForm" (click)="serviceAdd()">
+            <form [formGroup]="serviceAddForm" (ngSubmit)="serviceAdd()">
             <div class="modal-body">
              
                 <div class="mb-3">
@@ -120,7 +120,7 @@
                 </div>
   
                 <div class="mb-3">
-                  Facility:<select class="form-select form-select-sm" formControlName="facility" >
+                  Facility:<select class="form-select form-select-sm" formControlName="facilityid" >
                     <ng-container *ngIf="facilities != null">
                       <option *ngFor="let facility of facilities" [ngValue]="facility.id">{{facility.name}}</option>
                     </ng-container>
@@ -136,7 +136,7 @@
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" (click)="serviceAdd()" data-dismiss="modal">Save</button>
               </div>
             </form>
           </div>
@@ -154,7 +154,7 @@
                 <span aria-hidden="true">×</span>
               </button>
             </div>
-            <form [formGroup]="serviceUpdateForm" (click)="serviceUpdate()">
+            <form [formGroup]="serviceUpdateForm" (ngSubmit)="serviceUpdate()">
               <div class="modal-body">
              
                 <div class="mb-3">
@@ -163,7 +163,7 @@
                 </div>
   
                 <div class="mb-3">
-                  Facility:<select class="form-select form-select-sm" formControlName="facility" >
+                  Facility:<select class="form-select form-select-sm" formControlName="facilityid" >
                     <ng-container *ngIf="facilities != null">
                       <option *ngFor="let facility of facilities" [ngValue]="facility.id">{{facility.name}}</option>
                     </ng-container>
@@ -178,8 +178,9 @@
                 
               </div>
               <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" (click)="noUpdate()" data-dismiss="modal" >Close</button>
+                <input type="hidden" formControlName="id">
+                <button type="submit" class="btn btn-primary" (click)="serviceUpdate()" data-dismiss="modal">Save</button>
               </div>
             </form>
           </div>
@@ -197,10 +198,13 @@
                 <span aria-hidden="true">×</span>
               </button>
             </div>
+            <form [formGroup]="serviceDeleteForm" (ngSubmit)="actualDelete()">
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-primary">YES</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+              <button type="submit" class="btn btn-primary" (click)="actualDelete()" data-dismiss="modal">YES</button>
+              <input type="hidden" formControlName="id">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="actualNotDelete()">NO</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>

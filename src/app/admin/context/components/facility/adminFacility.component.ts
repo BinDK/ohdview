@@ -12,11 +12,13 @@ import { Role } from 'src/app/entites/role.entity';
 export class AdminFacilityComponent {
 
   facilities: Facility[];
+  faciDetail: Facility[];
   accounts: Account[];
   roles: Role;
   facilityAddForm: FormGroup;
   facilityUpdateForm: FormGroup;
-
+  facilityDeleteForm: FormGroup;
+  
   constructor(
     private service: AdminService,
     private formBuilder: FormBuilder
@@ -33,28 +35,96 @@ export class AdminFacilityComponent {
         reject =>{console.log(reject) }
     );
     this.facilityAddForm = this.formBuilder.group({
-      id:'',
       name:'',
-      email:'',
-      username:'',
-      password:'',
-      roleId:0,
+      headaccountid:0,
+      description:'',
     });
     this.facilityUpdateForm = this.formBuilder.group({
+      id:0,
       name:'',
-      email:'',
-      username:'',
-      password:'',
-      roleId:0,
+      headaccountid:0,
+      description:'',
     });
+    this.facilityDeleteForm = this.formBuilder.group({id: 0});
 
   }
   addFacility(){
-
+  let faci :Facility = this.facilityAddForm.value;
+    this.service.createFacility(faci).then(
+      accept => {
+        this.service.findAllFacility().then(
+          res => {this.facilities  = res},
+          reject =>{console.log(reject) }
+      );
+      },
+        reject => {console.log(reject)}
+    );
   }
 
-  updateFacility(){
 
+  detailFacility(id: number) {
+    this.service.detailFacility(id).then(
+      res => {
+
+        this.faciDetail = res;
+        console.log(res);
+        res.forEach(faci => {
+          this.facilityUpdateForm = this.formBuilder.group({
+            id: faci.id,
+            name: faci.name,
+            headaccountid: faci.headaccountid,
+            description: faci.description,
+          });
+        });
+      },
+
+      reject => { console.log(reject) }
+    );
+  }
+  facilityUpdate() {
+    let faci: Facility = this.facilityUpdateForm.value;
+
+    this.service.updateFacility(faci).then(
+      accept => {
+        this.service.findAllFacility().then(
+          res => { this.facilities = res },
+          reject => { console.log(reject) }
+        );
+      },
+      reject => { console.log(reject) }
+    );
+  }
+  noUpdate() {
+    this.facilityUpdateForm = this.formBuilder.group({
+      id: 0,
+      name: '',
+      headaccountid: 0,
+      description: ''
+    });
+  }
+
+  deleteFacility(id: number) {
+    this.facilityDeleteForm = this.formBuilder.group({
+      id: id
+    });
+  }
+  actualDelete() {
+    let faci: Facility = this.facilityDeleteForm.value;
+
+    this.service.deleteFacility(faci.id).then(
+      accept => {
+        this.service.findAllFacility().then(
+          res => { this.facilities = res },
+          reject => { console.log(reject) }
+        );
+      },
+      reject => { console.log(reject) }
+    );
+  }
+  actualNotDelete() {
+    this.facilityDeleteForm = this.formBuilder.group({
+      id: 0
+    });
   }
   
 }

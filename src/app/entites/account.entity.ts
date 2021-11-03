@@ -8,5 +8,4 @@ export class Account{
     email: string;
     role: Role;
     roleId: number;
-    status: boolean;
 }

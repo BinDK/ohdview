@@ -20,9 +20,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              Account Table
-              <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#new-account">Add
-                Account</a>
+              Priority Table
+              <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#new-priority">Add
+                Priority</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -38,32 +38,41 @@
                       <thead>
                         <tr role="row">
                           <th>ID</th>
-                          <th>Username</th>
                           <th>Name</th>
-                          <th>Email</th>
-                          <th>Role</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <ng-container *ngIf="accounts != null">
-                          <ng-container *ngFor="let account of accounts">
+                        <tr>
+                          <td>21</td>
+                          <td>asdsd</td>
+                          <td>                                <button class="btn btn-primary" data-toggle="modal"
+                            data-target="#update-priority">Update</button>&nbsp;&nbsp;
+                          <button class="btn btn-danger" data-toggle="modal"
+                            data-target="#delete-priority">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <td>23</td>
+                          <td>sdas</td>
+                          <td>                                <button class="btn btn-primary" data-toggle="modal"
+                            data-target="#update-priority">Update</button>&nbsp;&nbsp;
+                          <button class="btn btn-danger" data-toggle="modal"
+                            data-target="#delete-priority">Delete</button></td>
+                        </tr>
+                        <!-- <ng-container *ngIf="priorities != null">
+                          <ng-container *ngFor="let priority of priorities">
                             <tr>
-                              <td>{{account.id}}</td>
-                              <td>{{account.username}}</td>
-                              <td>{{account.name}}</td>
-                              <td>{{account.email}}</td>
-                              <td>{{account.role.name}}</td>
-                              <!-- <td>{{account.roleId}}</td> -->
+                              <td>{{priority.id}}</td>
+                              <td>{{priority.name}}</td>
                               <td class="text-center">
                                 <button class="btn btn-primary" data-toggle="modal"
-                                  data-target="#update-account" (click)="detailUser(account.id)">Update</button>&nbsp;&nbsp;
+                                  data-target="#update-priority">Update</button>&nbsp;&nbsp;
                                 <button class="btn btn-danger" data-toggle="modal"
-                                  data-target="#delete-account" (click)="deleteAccount(account.id)">Delete</button>
+                                  data-target="#delete-priority">Delete</button>
                               </td>
                             </tr>
                           </ng-container>
-                        </ng-container>
+                        </ng-container> -->
                       </tbody>
                     </table>
                   </div>
@@ -108,7 +117,7 @@
     </div>
 
     <!-- MODAL ADD UPDATE DELETE ACCOUNT -->
-    <div class="modal fade" id="new-account" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="new-priority" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
@@ -117,36 +126,12 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form [formGroup]="accountAddForm" (ngSubmit)="addAccount()">
+          <form [formGroup]="priorityAddForm" (ngSubmit)="addAccount()">
             <div class="modal-body">
 
               <div class="mb-3">
                 <label for="fullname" class="col-form-label">Name</label>
                 <input type="text" class="form-control" id="fullname" id="name" formControlName="name">
-              </div>
-              <div class="mb-3">
-                <label for="email" class="col-form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" formControlName="email">
-              </div>
-
-              <div class="mb-3">
-                <label for="username" class="col-form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" formControlName="username">
-              </div>
-
-              <div class="mb-3">
-                <label for="password" class="col-form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" formControlName="password">
-              </div>
-              <div class="mb-3">
-                <select class="form-select form-select-sm" name="roleId" formControlName="roleId">
-                  <ng-container *ngIf="roles != null">
-                    <!-- <ng-container *ngFor="let role of roles; let i =index">
-                      <option value="{{i + 1}}">{{role.name}}</option>
-                    </ng-container> -->
-                    <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
-                  </ng-container>
-                </select>
               </div>
 
 
@@ -162,7 +147,7 @@
       <!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade" id="update-account" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="update-priority" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
@@ -171,47 +156,19 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form [formGroup]="accountUpdateForm" (ngSubmit)="updateAccount()">
+          <form [formGroup]="priorityUpdateForm" (ngSubmit)="addAccount()">
             <div class="modal-body">
-
 
               <div class="mb-3">
                 <label for="fullname" class="col-form-label">Name</label>
-                <input type="text" class="form-control" id="fullname" formControlName="name">
-              </div>
-
-              <div class="mb-3">
-                <label for="email" class="col-form-label">Email</label>
-                <input type="email" class="form-control" id="email" formControlName="email">
-              </div>
-
-              <div class="mb-3">
-                <label for="username" class="col-form-label">Username</label>
-                <input type="text" class="form-control" id="username" formControlName="username">
-              </div>
-
-              <div class="mb-3">
-                <label for="password" class="col-form-label">Password</label>
-                <input type="text" class="form-control" id="password" formControlName="password">
-              </div>
-
-              <div class="mb-3">
-                <select class="form-select form-select-sm" formControlName="roleId">
-                  <ng-container *ngIf="roles != null">
-                    <!-- <ng-container *ngFor="let role of roles; let i =index">
-                      <option value="{{i + 1}}">{{role.name}}</option>
-                    </ng-container> -->
-                    <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
-                  </ng-container>
-                </select>
+                <input type="text" class="form-control" id="fullname" id="name" formControlName="name">
               </div>
 
 
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal" (click)="noUpdate()">Close</button>
-              <input type="hidden" formControlName="id">
-              <button type="submit" class="btn btn-primary" (click)="updateAccount()" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
             </div>
           </form>
         </div>
@@ -220,7 +177,7 @@
       <!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade" id="delete-account" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="delete-priority" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
@@ -229,13 +186,10 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form [formGroup]="accountDeleteForm" (ngSubmit)="actualDelete()">
-            <div class="modal-footer justify-content-between">
-              <button type="submit" class="btn btn-primary" (click)="actualDelete()" data-dismiss="modal">YES</button>
-              <input type="hidden" formControlName="id">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="noDelete()">NO</button>
-            </div>
-            </form>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-primary">YES</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+          </div>
         </div>
         <!-- /.modal-content -->
       </div>
