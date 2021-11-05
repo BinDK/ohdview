@@ -26,7 +26,9 @@ export class UserContentComponent {
 
   ngOnInit() {
     this.service.findAll().then(
-      res => { this.accounts = res },
+      res => { this.accounts = res
+        //  alert(res.length)
+       },
       reject => { console.log(reject) }
     );
     this.service.findAllRole().then(

@@ -5,6 +5,7 @@ import { Account } from "src/app/entites/account.entity";
 import { Facility } from "src/app/entites/facility.entity";
 import { Result } from "src/app/entites/result.entity";
 import { Role } from "src/app/entites/role.entity";
+import { Service } from "src/app/entites/service.entity";
 import * as Port from "src/port"
 @Injectable()
 export class ClientService{
@@ -29,6 +30,9 @@ export class ClientService{
     // Admin /FacilityZZ
     findAllFacility() {
         return this.httpClient.get(this.BASE_URL + '/facility/findall').toPromise().then(result => result as Facility[]);
+    }
+    findFacility(id : number) {
+        return this.httpClient.get(this.BASE_URL + '/service/findfacility/' + id).toPromise().then(result => result as Service[]);
     }
 
 }

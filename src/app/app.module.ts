@@ -13,6 +13,7 @@ import { MainRouting } from './app.routing';
 import { AdminModule } from './admin/admin.module';
 import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
+import { EditorModule } from 'primeng/editor';
 // import { ClientComponent } from './client/client.component';
 // import { ClientModule } from './client/client.module';
 // import { ClientModule } from './client/client.module';
@@ -30,7 +31,8 @@ import { LoginModule } from './login/login.module';
     //Prime stuff
     AccordionModule,
     TableModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
