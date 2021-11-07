@@ -14,17 +14,15 @@ declare var Quill: any;
 })
 export class ClientSendRequestComponent {
 
-  priority: Priority[];
+  priorities: Priority[];
   facilities: Facility[];
   services: Service[];
+  
   reason:string
-  test:string;
+ 
   requestAddForm: FormGroup;
   requestDetailForm: FormGroup;
-      // requestDetailForm = new FormGroup({
-      
-      //   reason: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      // });
+
   constructor(
     private service: ClientService,
     private formBuilder: FormBuilder,
@@ -38,7 +36,10 @@ export class ClientSendRequestComponent {
       res => { this.facilities = res },
       reject => { console.log(reject) }
     );
-
+    this.service.findAllPriority().then(
+      res => { this.priorities = res },
+      reject => { console.log(reject) }
+    );
     // this.accountAddForm = this.formBuilder.group({
     //   id:'',
     //   name:'',
@@ -53,11 +54,7 @@ export class ClientSendRequestComponent {
         });
 
   }
-  get detail(){
 
-    return this.requestDetailForm.controls;
-
-  }
   // addRequest(){
   // let account :Account= this.accountAddForm.value;
   // // alert(" Role : "+ account.roleId);
@@ -78,10 +75,10 @@ export class ClientSendRequestComponent {
   detailRequest(id:number){
     
   }
-    
-
+  get detail(){
+    return this.requestDetailForm.controls;
+  }
   submit(){
-
     alert(this.requestDetailForm.value);
 
   }

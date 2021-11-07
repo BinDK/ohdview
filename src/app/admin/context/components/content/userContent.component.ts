@@ -61,7 +61,16 @@ export class UserContentComponent {
     this.service.createAccount(accountx).then(
       accept => {
         this.service.findAll().then(
-          res => { this.accounts = res },
+          res => {
+            this.accounts = res; 
+            this.accountAddForm = this.formBuilder.group({
+              name: '',
+              email: '',
+              username: '',
+              password: '',
+              roleId: 0,
+            }); 
+            },
           reject => { console.log(reject) }
         );
       },

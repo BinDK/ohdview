@@ -141,9 +141,6 @@
               <div class="mb-3">
                 <select class="form-select form-select-sm" name="roleId" formControlName="roleId">
                   <ng-container *ngIf="roles != null">
-                    <!-- <ng-container *ngFor="let role of roles; let i =index">
-                      <option value="{{i + 1}}">{{role.name}}</option>
-                    </ng-container> -->
                     <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
                   </ng-container>
                 </select>
@@ -153,7 +150,7 @@
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="addAccount()">Save</button>
             </div>
           </form>
         </div>

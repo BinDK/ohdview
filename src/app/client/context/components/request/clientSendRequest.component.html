@@ -71,27 +71,53 @@
                           </div>
 
                           <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="facility">Facility</label>
-                                <select class="form-control" id="facility" (change)="findFacility($event)">
-                                  <option value="">Choose Facility</option>
-                                  <ng-container *ngIf="facilities != null">
-                                    <option *ngFor="let faci of facilities" [ngValue]="faci.id" value="{{faci.id}}">{{faci.name}}</option>
-                                  </ng-container>
-                                </select>
+                            <div class="card">
+                           
+                              <div class="card-body">
+                              <div class="form-group">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="facility">Facility</label>
+                                      <select class="form-control" id="facility" (change)="findFacility($event)">
+                                        <option value="">Choose Facility</option>
+                                        <ng-container *ngIf="facilities != null">
+                                          <option *ngFor="let faci of facilities" [ngValue]="faci.id" value="{{faci.id}}">{{faci.name}}</option>
+                                        </ng-container>
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="facility">Service</label>
+                                      <select name="" class="form-control" id="facility">
+                                        <!-- <option value="">Choose Service</option> -->
+                                        <ng-container *ngIf="services != null">
+                                          <option *ngFor="let service of services" [ngValue]="service.id">{{service.name}}</option>
+                                        </ng-container>
+                                      </select>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="facility">Priority</label>
+                                  <select name="" class="form-control" id="facility">
+                                    <!-- <option value="">Choose Service</option> -->
+                                    <ng-container *ngIf="priorities != null">
+                                      <option *ngFor="let priority of priorities" [ngValue]="priority.id">{{priority.name}}</option>
+                                    </ng-container>
+                                  </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                              <label for="facility">Service</label>
-                              <select name="" class="form-control" id="facility">
-                                <option value="">Choose Service</option>
-                                <ng-container *ngIf="services != null">
-                                  <option *ngFor="let service of services" [ngValue]="service.id">{{service.name}}</option>
-                                </ng-container>
-                              </select>
+                            </div>
+                            <div class="card-footer">
+
+                            <button id="submitBTN" class="btn btn-lg btn-primary" style="background-color: rgb(26, 170, 110) !important;">Send</button>
+
+                             </div>
                           </div>
-                          <div class="form-group">
-                            <button class="btn  btn-lg btn-primary" style="background-color: rgb(26, 170, 110) !important;">Send</button>
-                          </div>                            
                           </div>
                         </div>
                       </form>
@@ -223,13 +249,4 @@
 <style>
 
 </style>
-<script>
-  // var reason = document.getElementById("reason").val();
-  // var subBTN = document.getElementById("submitBTN");
-  // if (reason == '' || reason == ' '){
-  //     subBTN.classList.remove("disabled");
-  // } else subBTN.classList.add("disabled");
-
-
-  </script>
   

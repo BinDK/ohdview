@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { prototype } from "events";
 import { Account } from "src/app/entites/account.entity";
 import { Facility } from "src/app/entites/facility.entity";
+import { Priority } from "src/app/entites/priority.entity";
 import { Result } from "src/app/entites/result.entity";
 import { Role } from "src/app/entites/role.entity";
 import { Service } from "src/app/entites/service.entity";
@@ -16,23 +17,15 @@ export class ClientService{
         private httpClient: HttpClient
     ){}
 
-    // Admin / Users
-    // findAll() {
-    //     return this.httpClient.get(this.BASE_URL + '/admin/account/findall').toPromise().then(result => result as Account[]);
-    // }
-    // findAllRole(){
-    //     return this.httpClient.get(this.BASE_URL + '/admin/role/findall').toPromise().then(result => result as Role[]);
-    // }
-    // create(account: Account) {
-    //     return this.httpClient.post(this.BASE_URL + '/admin/create', account).toPromise().then(result => result as Account);
-    // }
-
-    // Admin /FacilityZZ
+    // user /FacilityZZ
     findAllFacility() {
         return this.httpClient.get(this.BASE_URL + '/facility/findall').toPromise().then(result => result as Facility[]);
     }
     findFacility(id : number) {
         return this.httpClient.get(this.BASE_URL + '/service/findfacility/' + id).toPromise().then(result => result as Service[]);
+    }
+    findAllPriority() {
+        return this.httpClient.get(this.BASE_URL + '/priority/findall').toPromise().then(result => result as Priority[]);
     }
 
 }
