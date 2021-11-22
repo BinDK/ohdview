@@ -34,11 +34,17 @@
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item">
-                <a id="accountM" [routerLink]="['sendRequest']" class="nav-link">
+                <button id="accountM" [routerLink]="['sendRequest']" class="btn nav-link text-left">
                   <i class="far fa-paper-plane nav-icon"></i>
                   <p>Request Management</p>
-                </a>
+                </button>
               </li>
+              <!-- <li class="nav-item">
+                <a id="accountM"  class="nav-link">
+                  <i class="far fa-paper-plane nav-icon"></i>
+                  <button (click)="roleis()">RoleId</button>
+                </a>
+              </li> -->
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

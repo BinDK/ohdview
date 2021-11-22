@@ -14,10 +14,14 @@ import { AdminModule } from './admin/admin.module';
 import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
 import { EditorModule } from 'primeng/editor';
+import { AuthGuard } from './auth/auth.guard';
+// import { RoleGuard } from './auth/role.guard';
 // import { ClientComponent } from './client/client.component';
 // import { ClientModule } from './client/client.module';
 // import { ClientModule } from './client/client.module';
-
+import { ToastrModule } from 'ngx-toastr';
+import { HeadModule } from './head/head.module';
+import { AssigneeModule } from './assignee/assignee.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -27,14 +31,17 @@ import { EditorModule } from 'primeng/editor';
     MainRouting,
     AdminModule,
     ClientModule,
+    HeadModule,
+    AssigneeModule,
     LoginModule,
     //Prime stuff
     AccordionModule,
     TableModule,
     BrowserAnimationsModule,
-    EditorModule
+    EditorModule,
+    ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

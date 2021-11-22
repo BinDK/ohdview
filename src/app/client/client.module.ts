@@ -19,6 +19,7 @@ import { ClientContextComponent } from './context/clientContext.component';
 import { ClientComponent } from './client.component';
 import { ClientProfileComponent } from './context/components/profiles/clientProfile.component';
 import { ClientSendRequestComponent } from './context/components/request/clientSendRequest.component';
+import { AllAccount } from '../services/AllAccount.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,6 @@ import { ClientSendRequestComponent } from './context/components/request/clientS
     HttpClientModule,
 
   ],
-  providers: [ClientService]
+  providers: [ClientService, AllAccount]
 })
 export class ClientModule { }

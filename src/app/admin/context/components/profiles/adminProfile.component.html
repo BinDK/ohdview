@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>General Form</h1>
+          <h1>Profiles Page</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -15,55 +15,6 @@
     </div><!-- /.container-fluid -->
   </section>
 
-  <!-- Main content -->
-  <!-- <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Your Profiles</h3>
-            </div>
-
-            <form>
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="exampleInputFile">
-                      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                    </div>
-                    <div class="input-group-append">
-                      <span class="input-group-text">Upload</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-              </div>
-
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section> -->
  
   <section class="content">
     <div class="container-fluid">
@@ -74,26 +25,12 @@
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle" src="../../../../../assets/img/avatar.png" alt="User profile picture">
+                <img class="profile-user-img img-fluid img-circle" src="https://avatars.dicebear.com/api/croodles/{{this.name}}.svg?background=%23ffffff" alt="User profile picture">
               </div>
 
-              <h3 class="profile-username text-center">Nina Mcintire</h3>
+              <h3 class="profile-username text-center">{{name}}</h3>
 
-              <p class="text-muted text-center">Software Engineer</p>
-
-              <ul class="list-group list-group-unbordered mb-3">
-                <li class="list-group-item">
-                  <b>Username</b> <a class="float-right">1,322</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Email</b> <a class="float-right">543</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Name</b> <a class="float-right">13,287</a>
-                </li>
-              </ul>
-
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              <p class="text-muted text-center">Admin</p>
             </div>
             <!-- /.card-body -->
           </div>
@@ -113,49 +50,22 @@
               <div class="tab-content">
                 
                 <div class="active tab-pane" id="update">
-                  <form class="form-horizontal">
+                  <form [formGroup]="accountUpdateForm" class="form-horizontal" (ngSubmit)="submitUPDATE()">
                     <div class="form-group row">
-                      <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                      <label for="inputName" class="col-sm-2 col-form-label">Username</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputName" placeholder="Name">
+                        <input type="text" class="form-control disabled text-muted" id="inputName" placeholder="UserName"  formControlName="username">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" formControlName="email">
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="submit" class="btn btn-outline-info">Submit</button>
                       </div>
                     </div>
                   </form>
@@ -163,29 +73,23 @@
 
                 <div class="tab-pane" id="password">
                   <!-- The timeline -->
-                  <form class="form-horizontal">
-                    <div class="form-group row">
-                      <label for="inputPassword0" class="col-sm-2 col-form-label">Old Password</label>
-                      <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword0" placeholder="Old Password">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword1" class="col-sm-2 col-form-label">Password</label>
-                      <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword1" placeholder="New Password">
-                      </div>
-                    </div>
+                  <form [formGroup]="changePass" class="form-horizontal" (ngSubmit)="submitChangeP()">
                     <div class="form-group row">
                       <label for="inputPassword1" class="col-sm-2 col-form-label">New Password</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputPassword2" placeholder="Re-enter new password">
+                        <input type="password" class="form-control" id="inputPassword1" placeholder="New Password" formControlName="newp">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputPassword1" class="col-sm-2 col-form-label">Confirm New Password</label>
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword2" placeholder="Re-enter new password" formControlName="confirmp">
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="submit" class="btn btn-danger" >Submit</button>
                       </div>
                     </div>
                   </form>

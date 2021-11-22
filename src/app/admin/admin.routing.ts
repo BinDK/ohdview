@@ -8,6 +8,9 @@ import { AdminServiceComponent } from './context/components/service/adminService
 import { AdminProfileComponent } from './context/components/profiles/adminProfile.component';
 import { AdminPriorityComponent } from './context/components/priority/priority.component';
 
+import { AuthGuard } from '../auth/auth.guard';
+import { AdminGuardService } from '../auth/adminGuard.service';
+
 const routes: Routes = [
     {
         path: 'admin',
@@ -18,7 +21,11 @@ const routes: Routes = [
             { path: 'service', component: AdminServiceComponent },
             { path: 'priority', component: AdminPriorityComponent },
             { path: 'profile', component: AdminProfileComponent },
-        ]
+        ],
+        canActivate: [AdminGuardService],
+        data:{
+            roleid: [1]
+        }
     }
 ];
 

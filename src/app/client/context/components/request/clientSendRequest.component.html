@@ -18,128 +18,116 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <!-- <div class="col-md-3">
-          <div class="card card-primary card-outline">
-            <div class="card-body box-profile">
-              <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle" src="../../../../../assets/img/avatar.png" alt="User profile picture">
-              </div>
-              <h3 class="profile-username text-center">Nina Mcintire</h3>
-              <p class="text-muted text-center">Software Engineer</p>
-              <ul class="list-group list-group-unbordered mb-3">
-                <li class="list-group-item">
-                  <b>Username</b> <a class="float-right">1,322</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Email</b> <a class="float-right">543</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Name</b> <a class="float-right">13,287</a>
-                </li>
-              </ul>
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-            </div>
-          </div>
-        </div> -->
+
 
         <div class="col-md-12">
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" href="#newRequest" data-toggle="tab">New Request</a></li>
-                <li class="nav-item"><a class="nav-link" href="#requestManagement" data-toggle="tab">Request Management</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#newRequest" data-toggle="tab">New Request</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#requestManagement" data-toggle="tab">Request
+                    Management</a></li>
               </ul>
             </div>
             <div class="card-body">
               <div class="tab-content">
-                
 
-                    <form class="active tab-pane" id="newRequest">                  
-                        <div class="row">
-                          <div class="col-md-9">
-                            <div class="form-group">
-                              <p-editor [style]="{'height':'220px'}">
-                                <ng-template pTemplate="header">
-                                    <span class="ql-formats">
-                                        <button type="button" class="ql-bold" aria-label="Bold"></button>
-                                        <button type="button" class="ql-italic" aria-label="Italic"></button>
-                                        <button type="button" class="ql-underline" aria-label="Underline"></button>               
-                                    </span>
-                                </ng-template>
-                            </p-editor>
-                            </div>
-                          </div>
 
-                          <div class="col-md-3">
-                            <div class="card">
-                           
-                              <div class="card-body">
-                              <div class="form-group">
-                              <div class="row">
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="facility">Facility</label>
-                                      <select class="form-control" id="facility" (change)="findFacility($event)">
-                                        <option value="">Choose Facility</option>
-                                        <ng-container *ngIf="facilities != null">
-                                          <option *ngFor="let faci of facilities" [ngValue]="faci.id" value="{{faci.id}}">{{faci.name}}</option>
-                                        </ng-container>
-                                      </select>
-                                    </div>
-                                  </div>
+                <form class="active tab-pane" id="newRequest" [formGroup]="requestAddForm" (ngSubmit)="requestSubmit()">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <p-editor formControlName="content" [style]="{'height':'220px'}">
+                          <ng-template pTemplate="header">
+                            <span class="ql-formats">
+                              <button type="button" class="ql-bold" aria-label="Bold"></button>
+                              <button type="button" class="ql-italic" aria-label="Italic"></button>
+                              <button type="button" class="ql-underline" aria-label="Underline"></button>
+                            </span>
+                          </ng-template>
+                        </p-editor>
+                      </div>
+                    </div>
 
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="facility">Service</label>
-                                      <select name="" class="form-control" id="facility">
-                                        <!-- <option value="">Choose Service</option> -->
-                                        <ng-container *ngIf="services != null">
-                                          <option *ngFor="let service of services" [ngValue]="service.id">{{service.name}}</option>
-                                        </ng-container>
-                                      </select>
+                    <div class="col-md-3">
+                      <div class="card">
 
-                                    </div>
-                                  </div>
-                                </div>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="facility">Priority</label>
-                                  <select name="" class="form-control" id="facility">
-                                    <!-- <option value="">Choose Service</option> -->
-                                    <ng-container *ngIf="priorities != null">
-                                      <option *ngFor="let priority of priorities" [ngValue]="priority.id">{{priority.name}}</option>
+                                  <label for="facility">Facility</label>
+                                  <!-- <select class="form-control" id="facility" formControlName="facility2" (change)="findFacility($event)"> -->
+                                  <select class="form-control" id="facility" formControlName="facility_id"
+                                    (change)="findFacility($event)">
+
+                                    <!-- <select class="form-control" id="facility"  (change)="findFacility($event)"> -->
+                                    <option value="0">Choose Facility</option>
+                                    <ng-container *ngIf="facilities != null">
+                                      <option *ngFor="let faci of facilities"
+                                        value="{{faci.id +'-'+ faci.headaccountid}}">{{faci.name}}</option>
                                     </ng-container>
                                   </select>
                                 </div>
-                            </div>
-                            </div>
-                            <div class="card-footer">
+                              </div>
 
-                            <button id="submitBTN" class="btn btn-lg btn-primary" style="background-color: rgb(26, 170, 110) !important;">Send</button>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="facility">Service</label>
+                                  <select name="" class="form-control" id="services" formControlName="service_id">
+                                    <!-- <select name="" class="form-control" id="services" > -->
+                                    <option value="0">Choose Service</option>
+                                    <ng-container *ngIf="services != null">
+                                      <option *ngFor="let service of services" value="{{service.id}}">{{service.name}}
+                                      </option>
+                                    </ng-container>
+                                  </select>
 
-                             </div>
-                          </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="facility">Priority</label>
+                              <select name="" class="form-control" id="priority" formControlName="request_priority_id">
+                                <option value="0">Choose Priority</option>
+                                <ng-container *ngIf="priorities != null">
+                                  <option *ngFor="let priority of priorities" [ngValue]="priority.id">{{priority.name}}
+                                  </option>
+                                </ng-container>
+                              </select>
+                            </div>
                           </div>
                         </div>
-                      </form>
+                        <div class="card-footer">
+
+                          <button id="submitBTN" class="btn btn-lg btn-primary"
+                            style="background-color: rgb(26, 170, 110) !important;" type="submit">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
 
                 <div class="tab-pane" id="requestManagement">
                   <div class="card">
                     <div class="card-header">
-                       Request Table
+                      Request Table
                       <!-- <a class="btn btn-outline-success float-right" data-toggle="modal" data-target="#new-facility" >Add Facility</a> -->
                       <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-      
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fas fa-search"></i>
-                            </button>
-                          </div>
+                          <select class="form-control" (change)="findReqBaseStatus($event)">
+                            <option [ngValue]="0" value="0">Status</option>
+                            <option [ngValue]="1" value="1">Pending</option>
+                            <!-- <option [ngValue]="2" value="2">Processing</option> -->
+                            <option [ngValue]="3" value="3">Finished</option>
+                            <option [ngValue]="4" value="4">Closed</option>
+                          </select>
                         </div>
                       </div>
                     </div>
-                    
+
                     <!-- /.card-header -->
                     <div class="card-body">
                       <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -149,50 +137,59 @@
                         </div>
                         <div class="row">
                           <div class="col-sm-12">
-                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
-                              aria-describedby="example2_info">
-                              <thead>
-                                <tr role="row">
-                                    <th>ID</th>
-                                    <th>Facility</th>
-                                    <th>Service</th>
-                                    <th>Status</th>
-                                    <th>Description</th>
+                            <ng-container *ngIf="requests != null">
+
+                              <p-table #dt [value]="requests" dataKey="id" styleClass="p-datatable-requests"
+                                [rowHover]="true" [rows]="4" [showCurrentPageReport]="true"
+                                [rowsPerPageOptions]="[4,8,12]" [paginator]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} request"
+                                [globalFilterFields]="['description','requestStatus.name','facility.name','service.name']"
+                                class="bg-dark">
+                                <ng-template pTemplate="caption">
+                                  <div class="p-d-flex ng-star-inserted">
+                                    <span class="p-input-icon-left p-ml-auto">
+                                      <i class="pi pi-search"></i>
+                                      <input pInputText type="text"
+                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="Search keyword" />
+                                    </span>
+                                  </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                  <tr>
+                                    <!-- <th>ID</th> -->
+                                    <th field="facility.name">Facility</th>
+                                    <th field="service.name">Service</th>
+                                    <th field="requestStatus.name">Status</th>
+                                    <th field="description">Description</th>
                                     <th>Start Date</th>
                                     <th>Action</th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                <tr class="odd">
-                                  <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                                  <td>Firefox 1.0</td>
-                                  <td>Win 98+ / OSX.2+</td>
-                                  <td>1.7</td>
-                                  <td>A</td>
-                                  <td>2020/2/2</td>
-                                  <td class="text-center">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetail"(click)="detailRequest(1)" >Access</button>&nbsp;&nbsp;
-                                  </td>
-                                </tr>
-                                <!-- <ng-container *ngIf="facilities != null">
-                                  <ng-container *ngFor="let facility of facilities">
-                                    <tr>
-                                    <td>{{facility.id}}</td>
-                                    <td>{{facility.name}}</td>
-                                    <td>{{facility.head.name}}</td>
-                                    <td>{{facility.description}}</td>
+                                  </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-request>
+                                  <!-- <ng-container *ngIf="requests != null"> -->
+                                  <!-- <ng-container *ngFor="let request of requests"> -->
+                                  <tr>
+                                    <!-- <td>{{request.id}}</td> -->
+                                    <td>{{request.facility.name}}</td>
+                                    <td>{{request.service.name}}</td>
+                                    <td>{{request.requestStatus.name}}</td>
+                                    <td>{{request.description}}</td>
+                                    <td>{{request.startDate| date:'dd /MM /yyyy HH:mm:ss '}}</td>
                                     <td class="text-center">
-                                      <button class="btn btn-primary" data-toggle="modal" data-target="#update-facility"(click)="detailFacility(facility.id)" >Update</button>&nbsp;&nbsp;
-                                      <button class="btn btn-danger" data-toggle="modal" data-target="#delete-facility" (click)="deleteFacility(facility.id)">Delete</button>
+                                      <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetail"
+                                        (click)="findDetail(request.id)">Access</button>&nbsp;&nbsp;
                                     </td>
-                                    </tr>
-                                  </ng-container>
-                                </ng-container> -->
-                              </tbody>
-                             </table>
+                                  </tr>
+                                  <!-- </ng-container> -->
+                                  <!-- </ng-container> -->
+                                </ng-template>
+                              </p-table>
+
+                            </ng-container>
                           </div>
                         </div>
-                        
+
                       </div>
                     </div>
                     <!-- /.card-body -->
@@ -209,39 +206,83 @@
     <div class="modal fade" id="requestDetail" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form [formGroup]="requestDetailForm" (ngSubmit)="submit()">
-          <div class="modal-header">
-            <h4 class="modal-title">Detail Request No</h4>
+          <!-- <form [formGroup]="closeForm" (ngSubmit)="submitClose()"> -->
+            <form [formGroup]="closeForm" >
+            <ng-container *ngIf="requestdetail != null">
+              <ng-container *ngFor="let req of requestdetail">
+                <div class="modal-header">
+                  <h4 class="modal-title">Detail Request No {{req.id}}</h4>
 
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>One fine body…</p>
-            <hr style="border-color: white !important;">
-            <div class="form-group">
-              <label for="reason">Reason to Close</label>
-              <input class="form-control" formControlName="reason" placeholder="Like! What happen?" type="text" id="reason"  >
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      Facility: <u><b>{{req.facility.name}}</b></u><br>
+                      Service: <u><b>{{req.service.name}}</b></u><br>
+                      Service: <b>{{req.requestStatus.name}}</b>
+
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="">Description: </label>
+                        <span [innerHTML]="req.description" style="word-wrap: break-word;"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                        aria-describedby="example2_info">
+                        <thead>
+                          <tr role="row">
+                            <th>Time</th>
+                            <!-- <th>Status</th> -->
+                            <th>Content</th>
+                            <!-- <th>Asignee</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngIf="reqlogs != null">
+                            <ng-container *ngFor="let reqlog of reqlogs">
+                              <tr>
+                                <td>{{reqlog.logTime| date:'dd /MM /yyyy HH:mm:ss'}}</td>
+                                <td>{{reqlog.reqConent}}</td>
+                                <!-- <td>{{reqlog.asignee.name ? reqlog.asignee.name : 'Not asigned yet' }}</td> -->
+                              </tr>
+                            </ng-container>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="form-group">
+                    <label for="reason">Reason to Close</label>
+                    <textarea class="form-control" formControlName="reason" placeholder="Like! What happen?" type="text"
+                      id="reason"> </textarea>
               <div *ngIf="detail.reason.touched && detail.reason.invalid" class="form-control is-invalid">
 
-                <span *ngIf="detail.reason.errors.required">Name is required.</span>
+                <span *ngIf="detail.reason.errors.required">Reason to Close this request is required.</span>
     
-                <span *ngIf="detail.reason.errors.minlength">Reason should be more than 10 Character.</span>
+                <span *ngIf="detail.reason.errors.minlength">Your reason should be more than 10 Character.</span>
     
               </div>
             </div>
           </div>
           <div class="modal-footer justify-content-between">
-            <button type="submit"  class="btn btn-primary" >Save changes</button>
-            <input type="hidden" value="">
+            <button type="submit"  class="btn btn-primary" (click)="submitClose()" data-dismiss="modal" >Save changes</button>
+            <input type="hidden"  value="{{req.id}}" formControlName="request_by_user_id">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
+        </ng-container>
+        </ng-container>
         </form>
         </div>
-        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
     </div>
   </section>
 

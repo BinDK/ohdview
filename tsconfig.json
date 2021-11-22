@@ -25,6 +25,9 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictDomEventTypes": false,
   }
 }
+//angularCompilerOptions strictDomEventType false là thêm vào để xài $event.target.value của prime table
+//Bên angular.json theme của primeng thay đổi chổ style
