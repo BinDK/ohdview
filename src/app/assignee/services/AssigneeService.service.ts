@@ -5,6 +5,7 @@ import { Account } from "src/app/entites/account.entity";
 import { AssignMent } from "src/app/entites/Assignment.entity";
 import { CreateRequestbyUserReq } from "src/app/entites/createRequestbyUserReq.entitiy";
 import { Facility } from "src/app/entites/facility.entity";
+import { FinTask } from "src/app/entites/finishedTask.entity";
 import { HeadTask } from "src/app/entites/headTask.entity";
 import { Priority } from "src/app/entites/priority.entity";
 import { ReqClose } from "src/app/entites/reqClose.entity";
@@ -13,6 +14,7 @@ import { RequestClient } from "src/app/entites/requestclient.entitiy";
 import { Result } from "src/app/entites/result.entity";
 import { Role } from "src/app/entites/role.entity";
 import { Service } from "src/app/entites/service.entity";
+import { UserTask } from "src/app/entites/userTask.entity";
 import * as Port from "src/port"
 @Injectable()
 export class AssigneeService{
@@ -26,16 +28,28 @@ export class AssigneeService{
     // user find stuff
 
     //head do thing like:
-    findallAssignment(id : number ){
-        return this.httpClient.get(this.BASE_URL + '/myrequests/myassignment/findall/'+ id).toPromise().then(result => result as HeadTask[]);
+    findallTask(id : number ){
+        return this.httpClient.get(this.BASE_URL + '/mytask/findAllTask/'+ id).toPromise().then(result => result as UserTask[]);
     }
-    findAssignment(status : string , id: number){
-        return this.httpClient.get(this.BASE_URL + '/myrequests/myassignment/findbyStatus/'+ status + '/headid/'+ id).toPromise().then(result => result as HeadTask[]);
+    findTaskStatus(status : string , id: number){
+        return this.httpClient.get(this.BASE_URL + '/mytask/findAllTaskAll/'+ id+ '/status/'+ status ).toPromise().then(result => result as UserTask[]);
     }
 
-    updateAssignment(assignment : AssignMent ){
-        return this.httpClient.put(this.BASE_URL + '/myrequests/myassignment/update', assignment).toPromise().then(result => result as HeadTask[]);
+    finishedTask(assignment : FinTask ){
+        return this.httpClient.put(this.BASE_URL + '/mytask/update', assignment).toPromise().then(result => result as UserTask[]);
     }
+
+    detailheadtask(id : number){
+        return this.httpClient.get(this.BASE_URL + '/myrequests/myassignment/find/'+ id).toPromise().then(result => result as HeadTask[]);
+    }
+    detailusertask(id : number){
+        return this.httpClient.get(this.BASE_URL + '/mytask/find/'+ id).toPromise().then(result => result as UserTask[]);
+
+    }
+
+
+
+
 
     findReq(id : number ){
         return this.httpClient.get(this.BASE_URL + '/myrequests/find/'+ id).toPromise().then(result => result as RequestClient[]);

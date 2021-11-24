@@ -14,34 +14,38 @@ import { ReqLog } from 'src/app/entites/reqLog.entity';
 import { ReqClose } from 'src/app/entites/reqClose.entity';
 import { HeadTask } from 'src/app/entites/headTask.entity';
 import { AssignMent } from 'src/app/entites/Assignment.entity';
+import { UserTask } from 'src/app/entites/userTask.entity';
+import { AssigneeService } from 'src/app/assignee/services/AssigneeService.service';
+import { FinTask } from 'src/app/entites/finishedTask.entity';
 declare var Quill: any;
 
 @Component({
   // selector: 'app-content1',
-  templateUrl: './headAssignment.component.html',
+  templateUrl: './assigneeTask.component.html',
 })
-export class HeadAssignmentComponent {
+export class AssigneeTaskComponent {
 
   priorities: Priority[];
   facilities: Facility[];
   services: Service[];
-  headTasks : HeadTask[];
+  userTasks : UserTask[];
   facility: Facility;
   assignees: Account[]; 
-  
+  detailhea
+
   requestdetail: RequestClient[];
   reqlogs: ReqLog[];
   reqConvert: CreateRequestbyUserReq;
   
   requestAddForm: FormGroup;
   requestDetailForm: FormGroup;
-  assignForm: FormGroup;
   
-  finishedForm: FormGroup;
+  finTaskForm: FormGroup;
+  
   finheadTasks : HeadTask[];
-
+  finuserTasks: UserTask[];
   constructor(
-    private service: HeadService,
+    private service: AssigneeService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     // private dt: Table,
@@ -50,78 +54,60 @@ export class HeadAssignmentComponent {
     
     ngOnInit() {
       let acc : Account  = JSON.parse(localStorage.getItem('role'));
-      this.service.findallAssignment(acc.id).then(
-        worked=>{this.headTasks = worked},
-      reject => { console.log(reject) }
-      );
-      this.service.findAllHead().then(
-        worked=>{this.assignees = worked},
+      this.service.findallTask(acc.id).then(
+        worked=>{this.userTasks = worked},
       reject => { console.log(reject) }
       );
 
-
-    
-
-      this.assignForm = this.formBuilder.group({
-        request_by_user_id:0,
-        assignee_Id: 0,
+      this.finTaskForm = this.formBuilder.group({
+        id: 0,
         note: '',
         });
 
-        this.finishedForm = this.formBuilder.group({
-          assignee_Id: 0,
-          // note: [{value:'',disable:true}],
-          });
-
-
   }
-
-  // getEventValue($event:any) :string {
-  //   return $event.target.value;
-  // } strictDomEventTypes bật off hảy xài cái này
-  
 
 
   findAssignmentStatus(evt: any){
     let acc : Account  = JSON.parse(localStorage.getItem('role'));
     var val = evt.target.value;
     if(parseInt(val) == 0){
-      this.service.findallAssignmentAll(acc.id).then(
-        worked=>{this.headTasks = worked},
+      this.service.findallTask(acc.id).then(
+        worked=>{this.userTasks = worked},
         reject => { console.log(reject) }
       );
     }
     else if(parseInt(val) == 1){
-    this.service.findAssignment("on", acc.id).then(
-      res => { this.headTasks = res },
+    this.service.findTaskStatus("on", acc.id).then(
+      res => { this.userTasks = res },
       reject => { console.log(reject) }
     );
     }
     else if(parseInt(val) == 2){
-      this.service.findAssignment("fin", acc.id).then(
-        res => { this.headTasks = res },
+      this.service.findTaskStatus("fin", acc.id).then(
+        res => { this.userTasks = res },
         reject => { console.log(reject) }
       );
       }
       else if(parseInt(val) == 3){
-        this.service.findAssignment("clo", acc.id).then(
-          res => { this.headTasks = res },
+        this.service.findTaskStatus("clo", acc.id).then(
+          res => { this.userTasks = res },
           reject => { console.log(reject) }
         );
         }
   }
   get f() { return this.requestAddForm.controls; }
-  
+
+
 
 //Detail
-findDetail(id: number){
+
+findDetail(id: number,idd:number){
   this.service.findReq(id).then(
     worked=>{
       this.requestdetail = worked;
       worked.forEach(element => {
-        this.assignForm = this.formBuilder.group({
-          assignee_Id: 0,
-          request_by_user_id:element.id,
+        this.finTaskForm = this.formBuilder.group({
+          id:element.id,
           note: '',
           });
       });
@@ -132,11 +118,14 @@ findDetail(id: number){
     worked => {this.reqlogs = worked},
     rej => {}
   );
+  this.service.detailheadtask(idd).then(work=>{this.finheadTasks = work},rej=>{});
 }
+
 findDetailFin(id: number, idd:number){
   this.service.findReq(id).then(
     worked=>{
       this.requestdetail = worked;
+      
     },
     rej =>{}
   );
@@ -144,7 +133,12 @@ findDetailFin(id: number, idd:number){
     worked => {this.reqlogs = worked},
     rej => {}
   );
+  this.service.detailusertask(id).then(
+    workedd=>{this.finuserTasks = workedd;},
+    rej=>{}
+  );
   this.service.detailheadtask(idd).then(work=>{this.finheadTasks = work},rej=>{});
+
 }
 
 findDetailClose(id: number){
@@ -160,28 +154,30 @@ findDetailClose(id: number){
   );
 }
 
-  get detail(){return this.assignForm.controls;}
+  get detail(){return this.finTaskForm.controls;}
   submitAssign(){
     if(
-      this.detail.note.value == '' || this.detail.note.value == null || this.detail.note.value.length <= 10 || 
-      this.detail.assignee_Id.value == 0
-      ){
-      this.toastr.error('Note / Assignee shouldn`t be empty or less than 10 character!', '', {
+      this.detail.note.value == '' || this.detail.note.value == null || this.detail.note.value.length <= 10){
+      this.toastr.error('Note for Head shouldn`t be empty or less than 10 character!', '', {
         timeOut: 4500,
         progressBar: true,
         progressAnimation: 'increasing'
       });
     }
     else{
-      let req:AssignMent = this.assignForm.value;
+      let req:FinTask = this.finTaskForm.value;
       let acc : Account  = JSON.parse(localStorage.getItem('role'));
-       this.service.updateAssignment(req).then(
+       this.service.finishedTask(req).then(
          worked=>{
            this.toastr.info('This task had been update', '', {
           timeOut: 3500,
           progressBar: true,
           progressAnimation: 'increasing'
         });
+        this.service.findallTask(acc.id).then(
+          worked=>{this.userTasks = worked},
+        reject => { console.log(reject) }
+        );
       },
          rej=>{console.log(rej)}
        );

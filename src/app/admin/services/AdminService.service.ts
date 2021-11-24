@@ -42,6 +42,22 @@ export class AdminService{
         return this.httpClient.delete(this.BASE_URL + '/admin/delete/' + id).toPromise().then(result => result as Account);
     }
 
+
+    //admin FindBy 
+    findbyUser(user:string) {
+        return this.httpClient.get(this.BASE_URL + '/admin/account/findByUser/' + user).toPromise().then(result => result as Account[]);
+    }
+    facilityFindBy(user:string) {
+        return this.httpClient.get(this.BASE_URL + '/facility/findallByName/' + user).toPromise().then(result => result as Facility[]);
+    }
+    serviceFindBy(user:string) {
+        return this.httpClient.get(this.BASE_URL + '/service/findallByName/' + user).toPromise().then(result => result as Service[]);
+    }
+    
+
+
+    // out find by
+
     // Admin /FacilityZZ
     findAllFacility() {
         return this.httpClient.get(this.BASE_URL + '/facility/findall').toPromise().then(result => result as Facility[]);

@@ -29,12 +29,20 @@ export class HeadService{
     findallAssignment(id : number ){
         return this.httpClient.get(this.BASE_URL + '/myrequests/myassignment/findall/'+ id).toPromise().then(result => result as HeadTask[]);
     }
+    findallAssignmentAll(id : number ){
+        return this.httpClient.get(this.BASE_URL + '/myrequests/myassignment/findallall/'+ id).toPromise().then(result => result as HeadTask[]);
+    }
     findAssignment(status : string , id: number){
         return this.httpClient.get(this.BASE_URL + '/myrequests/myassignment/findbyStatus/'+ status + '/headid/'+ id).toPromise().then(result => result as HeadTask[]);
     }
 
     updateAssignment(assignment : AssignMent ){
         return this.httpClient.put(this.BASE_URL + '/myrequests/myassignment/update', assignment).toPromise().then(result => result as HeadTask[]);
+    }
+
+    detailheadtask(id : number){
+        return this.httpClient.get(this.BASE_URL + '/myrequests/myassignment/find/'+ id).toPromise().then(result => result as HeadTask[]);
+
     }
 
     findReq(id : number ){

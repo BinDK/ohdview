@@ -17,7 +17,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import {EditorModule} from 'primeng/editor';
 import { ClientContextComponent } from './context/clientContext.component';
 import { ClientProfileComponent } from './context/components/profiles/clientProfile.component';
-import { HeadAssignmentComponent } from './context/components/request/headAssignment.component';
+import { AssigneeTaskComponent } from './context/components/request/assigneeTask.component';
 import { AllAccount } from '../services/AllAccount.service';
 import { AssigneeComponent } from './assignee.component';
 
@@ -30,7 +30,7 @@ import { AssigneeComponent } from './assignee.component';
     HeaderElement,
     ContentElement,
     ClientProfileComponent,
-    HeadAssignmentComponent
+    AssigneeTaskComponent
   ],
   imports: [
     BrowserModule,

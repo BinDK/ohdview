@@ -34,7 +34,7 @@ export class LoginComponent {
     this.service.login(account).then(
       work => {
         if(work == null || work == undefined){
-          this.toastr.error('Something Wrong!!', '', {
+          this.toastr.error('Wrong Pass!!', '', {
             timeOut: 2000,
             progressBar: true,
             progressAnimation: 'increasing',
@@ -63,7 +63,16 @@ export class LoginComponent {
         this.router.navigate(['/asignee']);
         
       },
-      rej => {console.log(rej)}
+      rej => {
+        this.toastr.error('Account Not found!!', '', {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'increasing',
+      });
+      this.loginForm = this.builder.group({
+        Username : '',
+        Password : ''
+      })}
     )
   }  
   

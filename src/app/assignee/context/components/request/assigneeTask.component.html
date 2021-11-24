@@ -24,8 +24,6 @@
             <div class="card-header p-2">
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#requestManagement" data-toggle="tab">Assignment Management</a></li>
-                <li class="nav-item"><a class="nav-link" href="#newRequest" data-toggle="tab">New Request</a>
-                </li>
               </ul>
             </div>
             <div class="card-body">
@@ -44,8 +42,8 @@
                           <select class="form-control" (change)="findAssignmentStatus($event)">
                             <option [ngValue]="0" value="0">All</option>
                             <option [ngValue]="1" value="1">On Going</option>
-                            <option [ngValue]="3" value="3">Finished</option>
-                            <option [ngValue]="4" value="4">Closed</option>
+                            <option [ngValue]="2" value="2">Finished</option>
+                            <option [ngValue]="3" value="3">Closed</option>
                           </select>
                         </div>
                       </div>
@@ -61,13 +59,13 @@
                         <div class="row">
                           <div class="col-sm-12">
 
-                            <ng-container *ngIf="headTasks != null">
+                            <ng-container *ngIf="userTasks != null">
 
-                              <p-table #dt responsiveLayout="scroll" [value]="headTasks"  dataKey="id" styleClass="p-datatable-headTasks"
+                              <p-table #dt responsiveLayout="scroll" [value]="userTasks"  dataKey="id" styleClass="p-datatable-userTasks"
                                 [rowHover]="true" [rows]="4" [showCurrentPageReport]="true"
                                 [rowsPerPageOptions]="[4,8,12]" [paginator]="true"
-                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} headTasks"
-                                [globalFilterFields]="['id','headTaskStatus','startDate','endDate']"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} userTasks"
+                                [globalFilterFields]="['headTaskStatus','startDate','endDate']"
                                 class="bg-dark">
                                 <ng-template pTemplate="caption">
                                   <div class="p-d-flex ng-star-inserted">
@@ -82,24 +80,42 @@
                                 <ng-template pTemplate="header">
                                   <tr>
                                     <!-- <th field="id">ID</th> -->
-                                    <th field="headTaskStatus">Status</th>
+                                    <th field="userTaskStatus">Status</th>
                                     <th pSortableColumn="startDate">Start Date <p-sortIcon field="startDate"></p-sortIcon></th>
                                     <th field="endDate">End Date</th>
                                     <th>Action</th>
                                   </tr>
                                 </ng-template>
-                                <ng-template pTemplate="body" let-headTask>
+                                <ng-template pTemplate="body" let-userTask>
                                   <!-- <ng-container *ngIf="requests != null"> -->
                                   <!-- <ng-container *ngFor="let request of requests"> -->
                                   <tr>
                                     <!-- <td>{{headTask.id}}</td> -->
-                                    <td>{{headTask.headTaskStatus}}</td>
-                                    <td>{{headTask.startDate | date:'yyyy/ MM/ dd HH:mm:ss'}}</td>
-                                    <td>{{headTask.endDate | date:'yyyy/ MM/ dd HH:mm:ss'}}</td>
-                                    <td class="text-center">
-                                      <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetail"
-                                        (click)="findDetail(headTask.requestByUserId)">Access</button>&nbsp;&nbsp;
-                                    </td>
+                                    <td>{{userTask.userTaskStatus}}</td>
+                                    <td>{{userTask.startDate | date:'yyyy/ MM/ dd HH:mm:ss'}}</td>
+                                    <td>{{userTask.endDate | date:'yyyy/ MM/ dd HH:mm:ss'}}</td>
+                                    
+                                    <ng-template [ngIf]="userTask.userTaskStatus == 'Finished'" [ngIfElse]="elseif">
+                                      <td class="text-center">
+                                          <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetailFin"
+                                          (click)="findDetailFin(userTask.requestByUserId,userTask.headtaskId)">Access</button>&nbsp;&nbsp;
+                                      </td>
+                                    </ng-template>
+                                    <ng-template #elseif>
+                                        <ng-template [ngIf]="userTask.userTaskStatus == 'Closed'" [ngIfElse]="elsee">
+                                          <td class="text-center">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetailClosed"
+                                            (click)="findDetailClose(userTask.requestByUserId)">Access</button>&nbsp;&nbsp;
+                                          </td>
+                                        </ng-template>
+                                    </ng-template>
+                                    
+                                    <ng-template #elsee>
+                                      <td class="text-center">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetail"
+                                        (click)="findDetail(userTask.requestByUserId,userTask.headtaskId)">Access</button>&nbsp;&nbsp;
+                                      </td>
+                                    </ng-template>
                                   </tr>
                                   <!-- </ng-container> -->
                                   <!-- </ng-container> -->
@@ -126,7 +142,7 @@
     <div class="modal fade" id="requestDetail" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form [formGroup]="assignForm" (ngSubmit)="submitAssign()">
+          <form [formGroup]="finTaskForm" (ngSubmit)="submitAssign()">
             <ng-container *ngIf="requestdetail != null">
               <ng-container *ngFor="let req of requestdetail">
                 <div class="modal-header">
@@ -148,6 +164,20 @@
                         <label for="">Description from client:</label>
                         <span [innerHTML]="req.description" style="word-wrap: break-word;"></span>
                       </div>
+                    </div>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <ng-container *ngIf="finheadTasks != null">
+                        <ng-container *ngFor="let finheadTask of finheadTasks">
+                      <div class="form-group">
+                        <label for="headnote">Note From Head: </label>
+                        <span id="headnote" style="word-wrap: break-word;"> {{finheadTask.note}}</span>
+                        <!-- <input type="hidden" formControlName="id" value="{{finheadTask.id}}"> -->
+                      </div>
+                        </ng-container>
+                      </ng-container>
                     </div>
                   </div>
                   <hr style="border-color: white !important;">
@@ -181,15 +211,7 @@
                   <hr style="border-color: white !important;">
                   <label class="text-center">Assign someone</label>
                   <div class="form-group">
-                    <select class="form-select form-select-sm" formControlName="assignee_Id" >
-                      <option value="0">Choose The Asignee</option>
-                      <ng-container *ngIf="assignees != null">
-                        <option *ngFor="let account of assignees" [value]="account.id" value="{{account.id}}">{{account.name}}</option>
-                      </ng-container>
-                      </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="note">Note for Asignee</label>
+                    <label for="note">Note for Head</label>
                     <textarea class="form-control" formControlName="note" placeholder="Like! What asignee should notice?" type="text"
                       id="reason"> </textarea>
                       <div *ngIf="detail.note.touched && detail.note.invalid" class="form-control is-invalid">
@@ -205,7 +227,7 @@
           <div class="modal-footer justify-content-between">
             <button type="submit"  class="btn btn-primary" >Save changes</button>
             <!-- <input type="hidden"  value="{{req.id}}" formControlName="request_by_user_id"> -->
-            <input type="hidden"  formControlName="request_by_user_id">
+            <input type="hidden"  formControlName="id">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </ng-container>
@@ -214,6 +236,187 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="requestDetailFin" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form >
+            <ng-container *ngIf="requestdetail != null">
+              <ng-container *ngFor="let req of requestdetail">
+                <div class="modal-header">
+                  <h4 class="modal-title">Detail Request No {{req.id}}</h4>
+
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Facility: </label> <u><b>{{req.facility.name}}</b></u><br>
+                      <label>Service: </label> <u><b>{{req.service.name}}</b></u><br>
+                      <label>Current Status: </label> <b>{{req.requestStatus.name}}</b>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="">Description from client:</label>
+                        <span [innerHTML]="req.description" style="word-wrap: break-word;"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="row">
+                    <ng-container *ngIf="finheadTasks != null">
+                      <ng-container *ngFor="let fin of finheadTasks">
+                    <div class="col-md-6">
+                      <label>Date Assigned: </label> <p><u><b>{{fin.endDate | date: 'dd /MM /yyyy HH:mm:ss'}}</b></u></p>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="hnote">Description for you: </label>
+                        <p id="hnote" style="word-wrap: break-word;">{{fin.note}}</p>
+                      </div>
+                    </div>
+                  </ng-container>
+                      </ng-container>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="row">
+                    <ng-container *ngIf="finuserTasks != null">
+                      <ng-container *ngFor="let utaskk of finuserTasks">
+                    <div class="col-md-6">
+                      <label>Date Finished: </label> <p><u><b>{{utaskk.endDate | date: 'dd /MM /yyyy HH:mm:ss'}}</b></u></p>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="unote">Note for Head: </label>
+                        <p id="unote" style="word-wrap: break-word;">{{utaskk.note}}</p>
+                      </div>
+                    </div>
+                  </ng-container>
+                      </ng-container>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label>Request Timeline</label>
+                      <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                        aria-describedby="example2_info">
+                        <thead>
+                          <tr role="row">
+                            <th>Time</th>
+                            <!-- <th>Status</th> -->
+                            <th>Content</th>
+                            <!-- <th>Asignee</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngIf="reqlogs != null">
+                            <ng-container *ngFor="let reqlog of reqlogs">
+                              <tr>
+                                <td>{{reqlog.logTime| date:'dd /MM /yyyy HH:mm:ss'}}</td>
+                                <td>{{reqlog.reqConent}}</td>
+                                <!-- <td>{{reqlog.asignee.name ? reqlog.asignee.name : 'Not asigned yet' }}</td> -->
+                              </tr>
+                            </ng-container>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <hr style="border-color: white !important;">
+
+
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </ng-container>
+        </ng-container>
+        </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="requestDetailClosed" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form >
+            <ng-container *ngIf="requestdetail != null">
+              <ng-container *ngFor="let req of requestdetail">
+                <div class="modal-header">
+                  <h4 class="modal-title">Detail Request No {{req.id}}</h4>
+
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Facility: </label> <u><b>{{req.facility.name}}</b></u><br>
+                      <label>Service: </label> <u><b>{{req.service.name}}</b></u><br>
+                      <label>Current Status: </label> <b>{{req.requestStatus.name}}</b>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="">Description from client:</label>
+                        <span [innerHTML]="req.description" style="word-wrap: break-word;"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="note">Why he/she Close this: </label>
+                        <span id="note" style="word-wrap: break-word;"> {{req.reasonCloseRequest}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <hr style="border-color: white !important;">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label>Request Timeline</label>
+                      <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                        aria-describedby="example2_info">
+                        <thead>
+                          <tr role="row">
+                            <th>Time</th>
+                            <!-- <th>Status</th> -->
+                            <th>Content</th>
+                            <!-- <th>Asignee</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngIf="reqlogs != null">
+                            <ng-container *ngFor="let reqlog of reqlogs">
+                              <tr>
+                                <td>{{reqlog.logTime| date:'dd /MM /yyyy HH:mm:ss'}}</td>
+                                <td>{{reqlog.reqConent}}</td>
+                                <!-- <td>{{reqlog.asignee.name ? reqlog.asignee.name : 'Not asigned yet' }}</td> -->
+                              </tr>
+                            </ng-container>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+          </div>
+          <div class="modal-footer justify-content-between">
+            <!-- <button type="submit"  class="btn btn-primary" >Save changes</button> -->
+            <!-- <input type="hidden"  value="{{req.id}}" formControlName="request_by_user_id"> -->
+            <!-- <input type="hidden"  formControlName="request_by_user_id"> -->
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </ng-container>
+        </ng-container>
+        </form>
+        </div>
+      </div>
+    </div>
+
   </section>
 
 </div>

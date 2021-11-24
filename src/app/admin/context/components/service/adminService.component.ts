@@ -49,6 +49,21 @@ export class AdminServiceComponent {
       id: 0
     });
   }
+  findByName(evt:any){
+    var val = evt.target.value;
+    if(val == ''){
+      this.service.findAllService().then(
+        res => { this.services = res
+          //  alert(res.length)
+         },
+        reject => { console.log(reject) }
+      );
+    }
+    this.service.serviceFindBy(val).then(
+      res => { this.services = res },
+      reject => { console.log(reject) }
+    );
+  }
 
   serviceAdd() {
     let service: Service = this.serviceAddForm.value;

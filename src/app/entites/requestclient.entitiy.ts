@@ -15,7 +15,7 @@ export class RequestClient{
     requestStatus: ReqStatus;
     
     account_id:number;
-    reason_to_close: string;
+    reasonCloseRequest: string;
     
     facility: Facility;
     account: Account

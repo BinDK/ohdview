@@ -5,7 +5,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { HeadGuardService } from '../auth/headGuard.service';
 import { ClientContextComponent } from './context/clientContext.component';
 import { ClientProfileComponent } from './context/components/profiles/clientProfile.component';
-import { HeadAssignmentComponent } from './context/components/request/headAssignment.component';
+import { AssigneeTaskComponent } from './context/components/request/assigneeTask.component';
 
 const routes: Routes = [
     {
@@ -14,7 +14,7 @@ const routes: Routes = [
         children: [
             // { path: 'account', component: UserContentComponent },
             // { path: 'facility', component: AdminFacilityComponent },
-            { path: 'mangeTask', component: HeadAssignmentComponent },
+            { path: 'mangeTask', component: AssigneeTaskComponent },
             { path: 'profile', component: ClientProfileComponent },
         ],
         canActivate: [AsigneeGuardService],

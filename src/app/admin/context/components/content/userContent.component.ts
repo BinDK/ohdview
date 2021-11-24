@@ -40,7 +40,7 @@ export class UserContentComponent {
       name: '',
       email: '',
       username: '',
-      password: '',
+      // password: '',
       roleId: 0,
     });
     this.accountUpdateForm = this.formBuilder.group({
@@ -56,6 +56,22 @@ export class UserContentComponent {
     });
   }
 
+  findByuser(evt:any){
+    var val = evt.target.value;
+    if(val == ''){
+      this.service.findAll().then(
+        res => { this.accounts = res
+          //  alert(res.length)
+         },
+        reject => { console.log(reject) }
+      );
+    }
+    this.service.findbyUser(val).then(
+      res => { this.accounts = res },
+      reject => { console.log(reject) }
+    );
+  }
+
   addAccount() {
     let accountx: Account = this.accountAddForm.value;
     this.service.createAccount(accountx).then(
@@ -67,7 +83,7 @@ export class UserContentComponent {
               name: '',
               email: '',
               username: '',
-              password: '',
+              // password: '',
               roleId: 0,
             }); 
             },
@@ -119,7 +135,7 @@ export class UserContentComponent {
       name: '',
       email: '',
       username: '',
-      password: '',
+      // password: '',
       roleId: 0,
     });
   }

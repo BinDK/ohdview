@@ -60,7 +60,21 @@ export class AdminFacilityComponent {
         reject => {console.log(reject)}
     );
   }
-
+  findByName(evt:any){
+    var val = evt.target.value;
+    if(val == ''){
+      this.service.findAllFacility().then(
+        res => { this.facilities = res
+          //  alert(res.length)
+         },
+        reject => { console.log(reject) }
+      );
+    }
+    this.service.facilityFindBy(val).then(
+      res => { this.facilities = res },
+      reject => { console.log(reject) }
+    );
+  }
 
   detailFacility(id: number) {
     this.service.detailFacility(id).then(

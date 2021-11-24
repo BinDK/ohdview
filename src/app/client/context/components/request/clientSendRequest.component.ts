@@ -172,7 +172,7 @@ findDetail(id: number){
       worked.forEach(element => {
         this.closeForm = this.formBuilder.group({
           request_by_user_id:element.id,
-          reason: element.reason_to_close,
+          reason: element.reasonCloseRequest,
           });
       });
     },
