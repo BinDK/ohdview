@@ -142,7 +142,7 @@
     <div class="modal fade" id="requestDetail" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form [formGroup]="finTaskForm" (ngSubmit)="submitAssign()">
+          <form [formGroup]="finTaskForm" >
             <ng-container *ngIf="requestdetail != null">
               <ng-container *ngFor="let req of requestdetail">
                 <div class="modal-header">
@@ -225,7 +225,7 @@
 
           </div>
           <div class="modal-footer justify-content-between">
-            <button type="submit"  class="btn btn-primary" >Save changes</button>
+            <button type="submit"  class="btn btn-primary" (click)="submitAssign()" data-dismiss="modal">FINISH IT!</button>
             <!-- <input type="hidden"  value="{{req.id}}" formControlName="request_by_user_id"> -->
             <input type="hidden"  formControlName="id">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

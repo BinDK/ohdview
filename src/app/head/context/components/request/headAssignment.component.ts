@@ -182,6 +182,10 @@ findDetailClose(id: number){
           progressBar: true,
           progressAnimation: 'increasing'
         });
+        this.service.findallAssignment(acc.id).then(
+          worked=>{this.headTasks = worked},
+        reject => { console.log(reject) }
+        );
       },
          rej=>{console.log(rej)}
        );
