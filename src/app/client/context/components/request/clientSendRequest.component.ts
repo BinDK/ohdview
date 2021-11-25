@@ -221,6 +221,11 @@ findDetail(id: number){
           },
         reject => { 
         //  console.log(reject)
+        this.toastr.info('This request had been closed, thank!', '', {
+          timeOut: 3500,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
          }
         );
       },
