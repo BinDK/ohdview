@@ -176,10 +176,27 @@
                                     <td>{{request.requestStatus.name}}</td>
                                     <td>{{request.description}}</td>
                                     <td>{{request.startDate| date:'dd /MM /yyyy HH:mm:ss '}}</td>
-                                    <td class="text-center">
-                                      <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetail"
+                                    <ng-template [ngIf]="request.requestStatus.name == 'Finished'" [ngIfElse]="elseif">
+                                      <td class="text-center">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetailFin"
                                         (click)="findDetail(request.id)">Access</button>&nbsp;&nbsp;
-                                    </td>
+                                      </td>
+                                    </ng-template>
+                                    <ng-template #elseif>
+                                        <ng-template [ngIf]="request.requestStatus.name == 'Closed'" [ngIfElse]="elsee">
+                                          <td class="text-center">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetailClosed"
+                                            (click)="findDetail(request.id)">Access</button>&nbsp;&nbsp;
+                                          </td>
+                                        </ng-template>
+                                    </ng-template>
+                                    
+                                    <ng-template #elsee>
+                                      <td class="text-center">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#requestDetail"
+                                        (click)="findDetail(request.id)">Access</button>&nbsp;&nbsp;
+                                      </td>
+                                    </ng-template>
                                   </tr>
                                   <!-- </ng-container> -->
                                   <!-- </ng-container> -->
@@ -222,12 +239,12 @@
                     <div class="col-md-4">
                       Facility: <u><b>{{req.facility.name}}</b></u><br>
                       Service: <u><b>{{req.service.name}}</b></u><br>
-                      Service: <b>{{req.requestStatus.name}}</b>
+                      Current Status: <b>{{req.requestStatus.name}}</b>
 
                     </div>
                     <div class="col-md-8">
                       <div class="form-group">
-                        <label for="">Description: </label>
+                        <label for="">Note For Facility's Head: </label>
                         <span [innerHTML]="req.description" style="word-wrap: break-word;"></span>
                       </div>
                     </div>

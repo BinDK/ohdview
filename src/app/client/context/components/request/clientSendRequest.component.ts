@@ -219,11 +219,26 @@ findDetail(id: number){
             this.requests = workedd;
             // this.requestdetail = workedd;
           },
-        reject => { console.log(reject) }
+        reject => { 
+        //  console.log(reject)
+         }
         );
       },
       
-         rej=>{console.log(rej)}
+         rej=>{
+          //  console.log(rej)
+          this.toastr.info('This request had been closed, thank!', '', {
+            timeOut: 3500,
+            progressBar: true,
+            progressAnimation: 'increasing'
+          });
+          let acc : Account  = JSON.parse(localStorage.getItem('role'));
+          this.service.findallReq(acc.id).then(
+            worked=>{this.requests = worked},
+          reject => { console.log(reject) }
+          );  
+        }
+          
        );
     }
 

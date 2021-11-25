@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/admin/services/AdminService.service';
 import { Facility } from 'src/app/entites/facility.entity';
 import { Service } from 'src/app/entites/service.entity';
@@ -19,7 +20,9 @@ export class AdminServiceComponent {
 
   constructor(
     private service: AdminService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toaster: ToastrService
+
 
   ) { }
 
@@ -64,12 +67,25 @@ export class AdminServiceComponent {
       reject => { console.log(reject) }
     );
   }
-
+  get detail(){return this.serviceAddForm.controls;}
   serviceAdd() {
+    if(this.detail.name.value == '' || this.detail.facilityid.value == 0 || this.detail.description.value == '')
+    {
+      this.toaster.error('Missing some value', '', {
+        timeOut: 3500,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+    }
+
     let service: Service = this.serviceAddForm.value;
     this.service.createService(service).then(
       accept => {
-        console.log(accept);
+        this.toaster.success('Successfully added Service', '', {
+          timeOut: 3500,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
         this.service.findAllService().then(
           res => { this.services = res },
           reject => { console.log(reject) }
@@ -103,6 +119,11 @@ export class AdminServiceComponent {
 
     this.service.updateService(service).then(
       accept => {
+        this.toaster.success('Successfully updated Service', '', {
+          timeOut: 3500,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
         this.service.findAllService().then(
           res => { this.services = res },
           reject => { console.log(reject) }

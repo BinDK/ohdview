@@ -82,7 +82,7 @@
                                     <!-- <th field="id">ID</th> -->
                                     <th field="headTaskStatus">Status</th>
                                     <th pSortableColumn="startDate">Start Date <p-sortIcon field="startDate"></p-sortIcon></th>
-                                    <th field="endDate">End Date</th>
+                                    <th pSortableColumn="endDate">End Date <p-sortIcon field="endDate"></p-sortIcon></th>
                                     <th>Action</th>
                                   </tr>
                                 </ng-template>
@@ -222,8 +222,6 @@
         </div>
       </div>
     </div>
-
-
 
     <div class="modal fade" id="requestDetailFin" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-lg">
@@ -402,7 +400,7 @@
 
           </div>
           <div class="modal-footer justify-content-between">
-            <button type="submit"  class="btn btn-primary" >Save changes</button>
+            <button type="submit"  class="btn btn-primary" data-dismiss="modal" (click)="submitAssign()" >Save changes</button>
             <!-- <input type="hidden"  value="{{req.id}}" formControlName="request_by_user_id"> -->
             <input type="hidden"  formControlName="request_by_user_id">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -71,7 +71,7 @@
                                 <button class="btn btn-primary" data-toggle="modal"
                                   data-target="#update-account" (click)="detailUser(account.id)">Update</button>&nbsp;&nbsp;
                                 <button class="btn btn-danger" data-toggle="modal"
-                                  data-target="#delete-account" (click)="deleteAccount(account.id)">Delete</button>
+                                  data-target="#delete-account" (click)="deleteAccount(account.id)">Deactivate</button>
                               </td>
                             </tr>
                           </ng-container>
@@ -235,7 +235,7 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form [formGroup]="accountDeleteForm" (ngSubmit)="actualDelete()">
+          <form [formGroup]="accountDeleteForm">
             <div class="modal-footer justify-content-between">
               <button type="submit" class="btn btn-primary" (click)="actualDelete()" data-dismiss="modal">YES</button>
               <input type="hidden" formControlName="id">

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/admin/services/AdminService.service';
 import { Account } from 'src/app/entites/account.entity';
 import { Facility } from 'src/app/entites/facility.entity';
@@ -21,7 +22,8 @@ export class AdminFacilityComponent {
   
   constructor(
     private service: AdminService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toaster: ToastrService
 
   ){}
 
@@ -48,17 +50,33 @@ export class AdminFacilityComponent {
     this.facilityDeleteForm = this.formBuilder.group({id: 0});
 
   }
+  get detail(){return this.facilityAddForm.controls;}
   addFacility(){
-  let faci :Facility = this.facilityAddForm.value;
-    this.service.createFacility(faci).then(
-      accept => {
-        this.service.findAllFacility().then(
-          res => {this.facilities  = res},
-          reject =>{console.log(reject) }
-      );
-      },
-        reject => {console.log(reject)}
-    );
+    if(this.detail.name.value == '' || this.detail.headaccountid.value == 0){
+      this.toaster.error('Missing some value', '', {
+        timeOut: 3500,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+    }
+    else{
+
+      let faci :Facility = this.facilityAddForm.value;
+      this.service.createFacility(faci).then(
+        accept => {
+          this.toaster.success('Successfully added Facility', '', {
+            timeOut: 3500,
+            progressBar: true,
+            progressAnimation: 'increasing'
+          });
+          this.service.findAllFacility().then(
+            res => {this.facilities  = res},
+            reject =>{console.log(reject) }
+            );
+          },
+          reject => {console.log(reject)}
+          );
+        }  
   }
   findByName(evt:any){
     var val = evt.target.value;
@@ -86,7 +104,7 @@ export class AdminFacilityComponent {
           this.facilityUpdateForm = this.formBuilder.group({
             id: faci.id,
             name: faci.name,
-            headaccountid: faci.headaccountid,
+            headaccountid: faci.head.id,
             description: faci.description,
           });
         });
@@ -100,6 +118,11 @@ export class AdminFacilityComponent {
 
     this.service.updateFacility(faci).then(
       accept => {
+        this.toaster.success('Successfully updated Facility', '', {
+          timeOut: 3500,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
         this.service.findAllFacility().then(
           res => { this.facilities = res },
           reject => { console.log(reject) }

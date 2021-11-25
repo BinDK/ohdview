@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Role } from 'src/app/entites/role.entity';
 import { empty } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   // selector: 'app-content1',
@@ -21,7 +22,8 @@ export class UserContentComponent {
   constructor(
     private service: AdminService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toaster: ToastrService
   ) { }
 
   ngOnInit() {
@@ -71,27 +73,51 @@ export class UserContentComponent {
       reject => { console.log(reject) }
     );
   }
-
+  get detail(){return this.accountAddForm.controls;}
   addAccount() {
-    let accountx: Account = this.accountAddForm.value;
-    this.service.createAccount(accountx).then(
-      accept => {
-        this.service.findAll().then(
-          res => {
-            this.accounts = res; 
-            this.accountAddForm = this.formBuilder.group({
-              name: '',
-              email: '',
-              username: '',
-              // password: '',
-              roleId: 0,
-            }); 
-            },
-          reject => { console.log(reject) }
-        );
-      },
-      reject => { console.log(reject) }
-    );
+    if(
+      this.detail.name.value == '' || this.detail.email.value == '' || this.detail.username.value == '' || this.detail.roleId.value == 0 
+    ){
+      this.toaster.error('Missing some value', '', {
+        timeOut: 3500,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+    }
+else{
+  let accountx: Account = this.accountAddForm.value;
+  this.service.createAccount(accountx).then(
+    accept => {
+      this.toaster.success('Successfully added new account!!', '', {
+        timeOut: 3500,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+      this.service.findAll().then(
+        res => {
+          this.accounts = res; 
+          this.accountAddForm = this.formBuilder.group({
+            name: '',
+            email: '',
+            username: '',
+            // password: '',
+            roleId: 0,
+          }); 
+          },
+        reject => { console.log(reject) }
+      );
+
+    },
+    reject => {
+          this.toaster.warning('Account already claimed', '', {
+          timeOut: 3500,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
+   }
+  );
+}
+
   }
 
   detailUser(id: number) {
@@ -120,6 +146,11 @@ export class UserContentComponent {
 
     this.service.updateAccount(acc).then(
       accept => {
+        this.toaster.success('Successfully change this account!!', '', {
+          timeOut: 3500,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
         this.service.findAll().then(
           res => { this.accounts = res },
           reject => { console.log(reject) }
@@ -151,7 +182,11 @@ export class UserContentComponent {
 
     this.service.deleteAccount(acc.id).then(
       accept => {
-        console.log(accept);
+        this.toaster.success('Successfully Deactivate this account!!', '', {
+          timeOut: 3500,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
         this.service.findAll().then(
           res => { this.accounts = res },
           reject => { console.log(reject) }
